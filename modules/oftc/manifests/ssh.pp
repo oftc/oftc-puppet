@@ -5,15 +5,19 @@ class oftc::ssh {
     context => "/files/etc/ssh/sshd_config",
     changes => [
       'set PermitRootLogin without-password',
+      'set AuthorizedKeysFile "%h/.ssh/authorized_keys /etc/ssh/userkeys/%u /var/lib/misc/userkeys/%u"',
     ],
-    require => Package['openssh-server']
+    require => Package['openssh-server'],
+    notify => Service['ssh'],
   }
+
+  service { 'ssh': }
 
   augeas { 'ssh_config':
     context => "/files/etc/ssh/ssh_config",
     changes => [
       'set Host/HashKnownHosts no',
     ],
-    require => Package['openssh-client']
+    require => Package['openssh-client'],
   }
 }
