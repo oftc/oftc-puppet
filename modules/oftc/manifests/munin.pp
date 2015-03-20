@@ -1,7 +1,10 @@
 class oftc::munin {
   package { 'munin-node': }
 
-  service { 'munin-node': }
+  service { 'munin-node':
+    ensure => running,
+    status => enabled,
+  }
 
   include stdlib
   file_line { 'allow candela ipv4':
