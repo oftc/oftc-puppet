@@ -3,7 +3,7 @@ class oftc::munin {
 
   service { 'munin-node':
     ensure => running,
-    status => enabled,
+    enable => true,
   }
 
   include stdlib
