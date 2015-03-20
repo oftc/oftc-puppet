@@ -1,0 +1,8 @@
+.*.swp
+
+# Files so far unchanged:
+auth.conf
+etckeeper-commit-post
+etckeeper-commit-pre
+fileserver.conf
+puppet.conf
