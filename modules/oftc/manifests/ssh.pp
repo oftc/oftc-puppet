@@ -11,7 +11,10 @@ class oftc::ssh {
     notify => Service['ssh'],
   }
 
-  service { 'ssh': }
+  service { 'ssh':
+    ensure => running,
+    enable => true,
+  }
 
   augeas { 'ssh_config':
     context => "/files/etc/ssh/ssh_config",
