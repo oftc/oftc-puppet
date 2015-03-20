@@ -4,4 +4,5 @@ class oftc::common {
   include oftc::nrpe
   include oftc::puppet
   include oftc::ssh
+  include oftc::udldap
 }
