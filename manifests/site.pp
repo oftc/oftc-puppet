@@ -1,7 +1,5 @@
-node default {
-  include oftc::common
-}
+include oftc::common
 
-node 'solenoid.oftc.net' {
-  include oftc::common
+node 'radian.oftc.net' {
+  include oftc::oftcdns
 }
