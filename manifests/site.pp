@@ -1,9 +1,12 @@
-include oftc::common
-
 node default {
-}
+  include oftc::common
 
-node 'radian.oftc.net' {
-  include oftc::oftcdns
-  include oftc::munin_v4fix
+  if $::hostname in hiera('oftcdnshosts') {
+    include oftc::oftcdns
+  }
+
+  if $::hostname in hiera('v4onlyhosts') {
+    include oftc::munin_v4fix
+  }
+
 }

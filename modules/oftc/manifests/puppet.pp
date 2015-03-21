@@ -12,10 +12,12 @@ class oftc::puppet {
     require => File['/etc/cron.d/puppet'],
   }
 
-  augeas { 'puppet.conf':
-    context => '/files/etc/puppet/puppet.conf',
-    changes => [
-      'set main/pluginsync true', # default in puppet 3.x
-    ],
+  if $::lsbdistcodename == squeeze {
+    augeas { 'puppet.conf':
+      context => '/files/etc/puppet/puppet.conf',
+      changes => [
+	'set main/pluginsync true', # default in puppet 3.x
+      ],
+    }
   }
 }

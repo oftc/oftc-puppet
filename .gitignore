@@ -1,5 +1,8 @@
 .*.swp
 
+# In a separate git:
+hieradata/
+
 # Files so far unchanged:
 auth.conf
 etckeeper-commit-post
