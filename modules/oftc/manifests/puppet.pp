@@ -12,7 +12,7 @@ class oftc::puppet {
     require => File['/etc/cron.d/puppet'],
   }
 
-  if $::lsbdistcodename == squeeze {
+  if $::puppetversion =~ /^2/ {
     augeas { 'puppet.conf':
       context => '/files/etc/puppet/puppet.conf',
       changes => [
