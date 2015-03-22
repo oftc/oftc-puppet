@@ -2,6 +2,7 @@ class oftc::nrpe {
   ensure_packages [
     'nagios-nrpe-server',
     'nagios-plugins-basic', # monitoring-plugins-basic on jessie
+    'libyaml-syck-perl', # check_puppet
   ]
 
   service { 'nagios-nrpe-server': }
