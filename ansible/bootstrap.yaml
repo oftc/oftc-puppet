@@ -1,0 +1,57 @@
+# Bootstrap a (new) host for OFTC
+---
+- hosts: all
+  #remote_user: root
+  tasks:
+
+  - name: Check hostname
+    shell: test "$(hostname -f)" = "{{inventory_hostname}}"
+
+  - name: oftc search path
+    lineinfile:
+      dest=/etc/resolv.conf
+      line="search oftc.net"
+      regexp="^search"
+
+#  - name: Install OFTC apt key
+#    apt_key:
+#      url=http://www.oftc.net/debian/31958639.asc
+#      keyring=/etc/apt/trusted.gpg.d/oftc.gpg
+#
+#  - name: Add OFTC repository
+#    apt_repository:
+#      repo="deb http://www.oftc.net/debian oftc main"
+#      mode=644
+#      update_cache=true
+
+  - name: Disable apt recommends
+    lineinfile:
+      dest=/etc/apt/apt.conf.d/20norecommends
+      create=yes
+      line='APT::Install-Recommends "false";'
+
+  #- name: Add backports repository
+  #  apt_repository:
+  #    repo="deb http://ftp.debian.org/debian {{ansible_distribution_release}}-backports main"
+  #    mode=644
+  #    update_cache=true
+
+  #- apt: name=userdir-ldap
+
+  - apt: name=puppet
+
+  - name: Run puppet to request certificate
+    shell: puppet agent -t --tags no_such_tag --waitforcert 0 || true
+
+  - name: Sign certificate on puppet master
+    command: puppet ca sign {{inventory_hostname}}
+    args:
+      creates: /var/lib/puppet/ssl/ca/signed/{{inventory_hostname}}.pem
+    delegate_to: mole.oftc.net
+
+  - name: Configure munin on candela
+    copy: dest=/etc/munin/munin-conf.d/{{inventory_hostname}}.conf content="[{{inventory_hostname}}]\n address {{inventory_hostname}}\n use_node_name yes\n"
+    delegate_to: candela.oftc.net
+
+  - name: Initial puppet run
+    command: puppet agent -t --pluginsync
