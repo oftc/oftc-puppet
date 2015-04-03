@@ -3,6 +3,7 @@ class oftc::base {
     'mtr-tiny',
     'less',
     'lsb-release',
+    'psmisc',
     'tree',
     'vim',
     'zsh',
