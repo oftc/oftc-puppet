@@ -1,0 +1,160 @@
+#!/bin/bash -e
+
+printf "\nrecvconf on %s processing:\n" "$(hostname -s)"
+FILELIST=/etc/oftc/recvconf.files
+
+temptar="$(mktemp)"
+chmod 0600 "$temptar"
+
+tempscript="$(mktemp)"
+chmod 0600 "$tempscript"
+
+tempdir="$(mktemp -d)"
+
+# Read tarball from STDIN
+gzip -dc > "$temptar"
+
+cd "$tempdir"
+tar xf "$temptar"
+
+copy_and_runcommands() {
+
+    local file perms user group precommand postcommand
+    file="$1"; perms="$2"; user="$3"; group="$4"; precommand="$5"; postcommand="$6"
+
+    if [ -f "$file" ]; then
+	if [ -h "$file" ]; then # File should NOT be a symlink
+	    printf "\`%s' is a symlink, aborting.\n" "$file" >&2
+	    return 1
+	fi
+
+	if ! [ "$file" -nt "/$file" ]; then
+	    rm -f "$file"
+	    return 0
+	fi
+
+	if [ -n "$precommand" ]; then
+	    printf "Running precommand \`%s' for %s\n" "$precommand" "$file" >&2
+	    eval -- $precommand >&2
+	fi
+
+	if [ -n "$perms" ]; then
+	    chmod -- "$perms" "$file"
+	else
+	    printf "Warning, no perms defined for \`%s', assuming 0640.\n" "$file" >&2
+	    chmod 0640 "$file"
+	fi
+	if [ -n "$user" ]; then
+	    chown -- "$user" "$file"
+	else
+	    printf "Warning, no user defined for \`%s', assuming root.\n" "$file" >&2
+	    chown root "$file"
+	fi
+	if [ -n "$group" ]; then
+	    chgrp -- "$group" "$file"
+	else
+	    printf "Warning, no group defined for \`%s', assuming root.\n" "$file" >&2
+	    chgrp root "$file"
+	fi
+
+	if [ ! -d "/$(dirname "$file")" ]; then
+	    printf "Directory \`%s' does not exist, aborting.\n" "$(dirname "$file")" >&2
+	    exit 1
+	fi
+
+	cp -a -- "$file" "/$(dirname "$file")" >&2
+	ls -l "/$(dirname "$file")/$(basename "$file")" >&2
+
+	if [ -n "$postcommand" ]; then
+	    if ! grep -F -- "$postcommand" "$tempscript" > /dev/null 2>&1; then
+		printf "%s\n" "$postcommand" >> "$tempscript"
+	    fi
+	fi
+
+	rm -f -- "$file"
+    fi
+}
+
+IN=0
+linenum=0
+nextfile=""
+while read line; do
+    linenum="$(($linenum + 1))"
+
+    if printf "%s\n" "$line" | grep -E '^[[:space:]]*$' > /dev/null 2>&1; then
+	## This line is an empty line; skip it
+	continue
+    elif printf "%s" "$line" | grep -E '^[[:space:]]*#' > /dev/null 2>&1; then
+	## This line is a comment; skip it
+	continue
+    fi
+
+    ## IN=0, so we're out of a stanza: better get a file declaration next
+    if [ "$IN" = "0" ] && ! printf "%s" "$line" | grep -E '^[[:space:]]*file[[:space:]]' > /dev/null 2>&1; then
+	printf "Error on line %s, file declaration expected. Got\n\t%s\n" "$linenum" "$line" >&2
+	exit 1
+    elif [ "$IN" = 0 ] && printf "%s" "$line" | grep -E '^[[:space:]]*file[[:space:]]' > /dev/null 2>&1; then
+	## Okay, we're just starting out; set $file and move on
+	file="$(printf "%s" "$line" | sed -e 's/[[:space:]]*file[[:space:]]\+\([^[:space:]#]*\).*/\1/')"
+	IN=1
+	continue
+    elif [ "$IN" = 1 ] && printf "%s" "$line" | grep -E '^[[:space:]]*file[[:space:]]' > /dev/null 2>&1; then
+	## Okay, not only are we at a file declaration, but this isn't our first one. Run the commands to process
+	## the file, then set a $file to the new value and continue parsing.
+	[ -n "$file" ] && copy_and_runcommands "$file" "$perms" "$user" "$group" "$precommand" "$postcommand"
+	file="$(printf "%s" "$line" | sed -e 's/[[:space:]]*file[[:space:]]\+\([^[:space:]#]*\).*/\1/')"
+	perms=""; user=""; group=""; precommand=""; postcommand=""
+	continue
+    fi
+
+    ## The last two if blocks weren't processed; thus this isn't a comment, a blank line, and we're in the middle of a stanza
+    if printf "%s" "$line" | grep -E '^[[:space:]]*perms[[:space:]]' > /dev/null 2>&1; then
+	perms="$(printf "%s" "$line" | sed -e 's/[[:space:]]*perms[[:space:]]\+\([^[:space:]#]*\).*/\1/')"
+	continue
+    elif printf "%s" "$line" | grep -E '^[[:space:]]*user[[:space:]]' > /dev/null 2>&1; then
+	user="$(printf "%s" "$line" | sed -e 's/[[:space:]]*user[[:space:]]\+\([^[:space:]#]*\).*/\1/')"
+	continue
+    elif printf "%s" "$line" | grep -E '^[[:space:]]*group[[:space:]]' > /dev/null 2>&1; then
+	group="$(printf "%s" "$line" | sed -e 's/[[:space:]]*group[[:space:]]\+\([^[:space:]#]*\).*/\1/')"
+	continue
+    elif printf "%s" "$line" | grep -E '^[[:space:]]*precommand[[:space:]]' > /dev/null 2>&1; then
+	precommand="$(printf "%s" "$line" | sed -e 's/[[:space:]]*precommand[[:space:]]\+\([^[:space:]#]*\)/\1/')"
+	continue
+    elif printf "%s" "$line" | grep -E '^[[:space:]]*postcommand[[:space:]]' > /dev/null 2>&1; then
+	postcommand="$(printf "%s" "$line" | sed -e 's/[[:space:]]*postcommand[[:space:]]\+\([^[:space:]#]*\)/\1/')"
+	continue
+    else
+	printf "Unknown token at line %s:\n\t%s\n" "$linenum" "$line"
+    fi
+
+done < "$FILELIST"
+
+## This is the last stanza and the above loop has set the variables, but hasn't yet processed the file
+[ -n "$file" ] && copy_and_runcommands "$file" "$perms" "$user" "$group" "$precommand" "$postcommand"
+
+if [ -s "$tempscript" ]; then
+    tempoutput="$(mktemp)"
+    ## Post-copying commands to be run, run them here. Only display output if they exit with $? > 0
+    while read command; do
+	printf "Running postcommand \`%s' on %s.\n" "$command" "$(hostname -s)" >&2
+	if ! eval -- "$command" > "$tempoutput" 2>&1; then
+	    printf "Error, postcommand \`%s' on %s failed. Output follows:\n" "$command" "$(hostname -s)" >&2
+	    cat -- "$tempoutput" >&2
+	    exit 1
+	fi
+    done < "$tempscript"
+fi
+
+# Check for any leftover files here; if there are any, exit with an error and print the list
+if [ ! -z "$(find . -type f)" ]; then
+    printf "The following files were not listed in /etc/oftc/recvconf.files:\n%s\n" "$(find . -type f)" >&2
+    exit 1
+fi
+
+rm -f -- "$temptar"
+rm -f -- "$tempoutput"
+rm -f -- "$tempscript"
+cd
+rm -rf -- "$tempdir"
+
+printf "recvconf on %s finished.\n" "$(hostname -s)"

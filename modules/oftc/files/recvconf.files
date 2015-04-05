@@ -1,0 +1,23 @@
+file etc/default/local-firewall
+    perms 0644
+    user root
+    group root
+    postcommand /etc/init.d/local-firewall.sh restart
+
+file etc/init.d/local-firewall.sh
+    perms 0755
+    user root
+    group root
+    postcommand /etc/init.d/local-firewall.sh restart
+
+file etc/nagios/nrpe_oftc.cfg
+    perms 0644
+    user root
+    group root
+    postcommand /etc/init.d/nagios-nrpe-server restart
+
+file etc/smokeping/config
+    perms 0644
+    user root
+    group root
+    postcommand /etc/init.d/smokeping restart

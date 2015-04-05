@@ -5,6 +5,7 @@ class oftc::common {
   include oftc::munin
   include oftc::nrpe
   include oftc::puppet
+  include oftc::recvconf
   include oftc::ssh
   include oftc::sudo
   include oftc::udldap
