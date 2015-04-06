@@ -9,7 +9,7 @@ node default {
     include oftc::oftcdns
   }
 
-  if $::hostname in hiera('v4onlyhosts') {
+  if $::hostname in hiera('vservers') {
     include oftc::munin_v4fix
   }
 

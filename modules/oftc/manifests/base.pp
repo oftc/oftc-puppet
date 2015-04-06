@@ -8,4 +8,9 @@ class oftc::base {
     'vim',
     'zsh',
   ]
+
+  if !($::hostname in hiera('vservers')) {
+    ensure_packages['ulogd']
+  }
+
 }
