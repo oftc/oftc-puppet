@@ -1,6 +1,7 @@
 class oftc::common {
   include oftc::base
   include oftc::bash
+  include oftc::cert
   include oftc::git
   include oftc::munin
   include oftc::nrpe
