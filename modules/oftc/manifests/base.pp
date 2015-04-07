@@ -1,8 +1,10 @@
 class oftc::base {
   ensure_packages [
-    'mtr-tiny',
+    'at',
     'less',
     'lsb-release',
+    'mtr-tiny',
+    'ntp',
     'psmisc',
     'tree',
     'vim',
