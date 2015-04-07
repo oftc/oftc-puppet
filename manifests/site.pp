@@ -9,6 +9,10 @@ node default {
     include oftc::oftcdns
   }
 
+  if !($::hostname in hiera('specialmta')) {
+    include postfix
+  }
+
   if $::hostname in hiera('vservers') {
     include oftc::munin_v4fix
   }

@@ -1,0 +1,71 @@
+biff = no
+append_dot_mydomain = no
+owner_request_special = no
+mydestination =
+        $myhostname
+        localhost.$mydomain
+
+alias_maps =
+        hash:/etc/aliases
+        cdb:/var/lib/misc/thishost/mail-forward
+alias_database = hash:/etc/aliases
+
+mynetworks = 127.0.0.0/8
+
+mailbox_size_limit = 0
+recipient_delimiter = +
+mailbox_command = /usr/bin/procmail
+
+
+smtpd_recipient_restrictions =
+        permit_mynetworks
+        reject_unauth_destination
+        reject_non_fqdn_recipient
+        reject_multi_recipient_bounce
+        reject_unknown_sender_domain
+        reject_non_fqdn_sender
+        reject_rhsbl_sender bogusmx.rfc-ignorant.org
+        reject_rhsbl_sender dsn.rfc-ignorant.org
+        reject_rbl_client cbl.abuseat.org
+
+#
+# tls stuff
+#
+smtpd_use_tls = yes
+smtpd_tls_cert_file = /etc/ssl/certs/thishost.pem
+smtpd_tls_key_file = /etc/ssl/private/thishost.key
+smtpd_tls_dh1024_param_file = /etc/ssl/certs/dh1024
+smtpd_tls_dh512_param_file = /etc/ssl/certs/dh512
+smtpd_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtpd_tls_ask_ccert = yes
+smtpd_tls_req_ccert = no
+smtpd_tls_received_header = yes
+smtpd_tls_loglevel = 0
+smtpd_tls_auth_only = yes
+
+smtp_use_tls = yes
+smtp_tls_cert_file = /etc/ssl/certs/thishost.pem
+smtp_tls_key_file = /etc/ssl/private/thishost.key
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_tls_note_starttls_offer = yes
+smtp_tls_loglevel = 0
+
+#smtpd_tls_session_cache_database = sdbm:/var/cache/postfix/smtpd_scache
+#smtp_tls_session_cache_database = sdbm:/var/cache/postfix/smtp_scache
+
+#
+# Misc delays and counters
+#
+smtpd_error_sleep_time = 25s
+smtpd_helo_required = yes
+strict_rfc821_envelopes = yes
+disable_vrfy_command = yes
+smtpd_hard_error_limit = 10
+smtpd_soft_error_limit = 2
+smtpd_recipient_limit = 100
+bounce_size_limit = 10000
+message_size_limit = 30720000
+
+mydomain = oftc.net
+
+#relayhost = fusion.oftc.net
