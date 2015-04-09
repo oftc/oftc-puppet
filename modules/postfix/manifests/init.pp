@@ -20,4 +20,9 @@ class postfix {
     notify => Service['postfix'],
   }
 
+  file { '/etc/postfix/sasl/smtpd.conf':
+    mode => 0644, owner => root, group => root,
+    content => "mech_list: LOGIN PLAIN\n",
+    require => Package['postfix'],
+  }
 }
