@@ -1,11 +1,5 @@
 .*.swp
 
-# In a separate git:
-hieradata/
-
-# Files so far unchanged:
-auth.conf
-etckeeper-commit-post
-etckeeper-commit-pre
-fileserver.conf
-puppet.conf
+# Files only in ~myon/oftc-puppet:
+apply.sh
+environment.conf

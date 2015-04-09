@@ -15,6 +15,7 @@ class oftc::nrpe {
   }
 
   file { '/etc/nagios/nrpe.d/nrpe_oftc_config.cfg':
+    mode => 0644, owner => root, group => root,
     source => "puppet:///modules/oftc/nrpe_oftc_config.cfg",
     require => Package['nagios-nrpe-server'],
     notify => Service['nagios-nrpe-server'],
