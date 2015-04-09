@@ -1,0 +1,2 @@
+# File managed by Puppet
+<%= @hash %>-59/15 * * * *  sshdist  if [ -x /usr/bin/ud-generate ]; then /usr/bin/ud-generate; fi

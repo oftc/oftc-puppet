@@ -1,0 +1,2 @@
+# File managed by Puppet
+<%= @hash %>-59/15 * * * *  root  if [ -x /usr/bin/ud-replicate ]; then /usr/bin/ud-replicate; fi
