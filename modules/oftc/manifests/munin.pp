@@ -1,5 +1,8 @@
 class oftc::munin {
-  package { 'munin-node': }
+  ensure_packages [
+    'munin-node',
+    'libnet-ssleay-perl',
+  ]
 
   service { 'munin-node':
     ensure => running,
