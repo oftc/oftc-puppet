@@ -6,6 +6,7 @@ class oftc::base {
     'mtr-tiny',
     'ntp',
     'psmisc',
+    'subversion',
     'tree',
     'vim',
     'zsh',
