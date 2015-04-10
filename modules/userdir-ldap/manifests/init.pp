@@ -16,14 +16,28 @@ class userdir-ldap {
     require => Apt::Source['db.debian.org'],
   }
 
-  ensure_packages [
-    'libnss-db',
-  ]
-
   # run every 15min from cron instead of daemonizing
   $hash = fqdn_rand(14) + 1 # on master: 1 min after ud-generate
   file { '/etc/cron.d/ud-replicate':
     mode => 0644, owner => root, group => root,
     content => template('userdir-ldap/cron.d.ud-replicate'),
+  }
+
+  file_line { 'nss passwd':
+     path => '/etc/nsswitch.conf',
+     line => "passwd:         compat db",
+     match => '^passwd:',
+  }
+
+  file_line { 'nss group':
+     path => '/etc/nsswitch.conf',
+     line => "group:          db compat",
+     match => '^group:',
+  }
+
+  file_line { 'nss shadow':
+     path => '/etc/nsswitch.conf',
+     line => "shadow:         compat db",
+     match => '^shadow:',
   }
 }
