@@ -40,4 +40,21 @@ class userdir-ldap {
      line => "shadow:         compat db",
      match => '^shadow:',
   }
+
+  # https://help.ubuntu.com/community/LDAPClientAuthentication#Automatically_create_home_folders
+  file { '/usr/share/pam-configs/mkhomedir':
+    content => template('userdir-ldap/mkhomedir'),
+    notify => Exec['pam-auth-update'],
+  }
+
+  exec { 'pam-auth-update':
+    command => '/usr/sbin/pam-auth-update',
+    refreshonly => true,
+  }
+
+  file { '/etc/sudoers.d/oftc-admin':
+    mode => 0440, owner => root, group => root,
+    content => "%oftc-admin ALL=(ALL) ALL\n",
+    require => Package['sudo'],
+  }
 }
