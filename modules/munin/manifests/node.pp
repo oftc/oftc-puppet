@@ -1,4 +1,4 @@
-class oftc::munin {
+class munin::node {
   ensure_packages [
     'munin-node',
     'libnet-ssleay-perl',

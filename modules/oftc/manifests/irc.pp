@@ -11,4 +11,11 @@ class oftc::irc {
     mode => 0644, owner => root, group => root,
     source => "puppet:///modules/oftc/oftc_limits.conf",
   }
+
+  munin::plugin {[
+    'irc',
+    'ircmemory',
+  ]:
+    directory => '/usr/local/oftc-tools/infrastructure/munin',
+  }
 }

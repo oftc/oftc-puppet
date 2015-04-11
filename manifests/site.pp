@@ -2,6 +2,7 @@ node default {
   include oftc::common
 
   if $::hostname == hiera('configserver') {
+    include munin
     include userdir-ldap::master
   }
 

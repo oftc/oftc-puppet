@@ -3,7 +3,7 @@ class oftc::common {
   include oftc::bash
   include oftc::cert
   include oftc::git
-  include oftc::munin
+  include munin::node
   include oftc::nrpe
   include oftc::puppet
   include oftc::recvconf
