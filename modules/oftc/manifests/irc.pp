@@ -18,4 +18,11 @@ class oftc::irc {
   ]:
     directory => '/usr/local/oftc-tools/infrastructure/munin',
   }
+
+  file { '/etc/munin/plugin-conf.d/ircmemory':
+    ensure => link,
+    target => '/usr/local/oftc-tools/infrastructure/munin/plugin-conf.d/ircmemory',
+    require => Package['munin-node'],
+    notify => Service['munin-node'],
+  }
 }
