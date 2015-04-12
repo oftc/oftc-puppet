@@ -5,6 +5,7 @@ class oftc::common {
   include oftc::git
   include munin::node
   include oftc::nrpe
+  include ntp
   include oftc::puppet
   include oftc::recvconf
   include oftc::ssh
