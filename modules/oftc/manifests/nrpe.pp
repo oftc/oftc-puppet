@@ -3,6 +3,7 @@ class oftc::nrpe {
     'nagios-nrpe-server',
     'nagios-plugins-basic', # monitoring-plugins-basic on jessie
     'libyaml-syck-perl', # check_puppet
+    'lsof', # nagios-check-libs
   ]
 
   service { 'nagios-nrpe-server': }
