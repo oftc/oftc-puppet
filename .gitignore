@@ -1,5 +1,8 @@
 .*.swp
 
+# In a separate git:
+hieradata/
+
 # Files only in ~myon/oftc-puppet:
 apply.sh
 environment.conf

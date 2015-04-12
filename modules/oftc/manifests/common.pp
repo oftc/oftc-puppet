@@ -9,5 +9,6 @@ class oftc::common {
   include oftc::recvconf
   include oftc::ssh
   include oftc::sudo
+  include syslog-ng
   include userdir-ldap
 }
