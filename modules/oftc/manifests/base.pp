@@ -8,12 +8,8 @@ class oftc::base {
     'psmisc',
     'subversion',
     'tree',
+    'ulogd',
     'vim',
     'zsh',
   ]
-
-  if !($::hostname in hiera('vservers')) {
-    ensure_packages['ulogd']
-  }
-
 }

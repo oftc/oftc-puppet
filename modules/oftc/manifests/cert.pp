@@ -3,7 +3,7 @@ class oftc::cert {
 
   file { "/etc/ssl/certs/thishost-chained.pem":
     ensure => link,
-    target => "$::hostname.oftc.net-chained.pem",
+    target => "$::fqdn-chained.pem",
     require => Package['ca-certificates'],
   }
 
@@ -15,7 +15,7 @@ class oftc::cert {
 
   file { "/etc/ssl/private/thishost.key":
     ensure => link,
-    target => "$::hostname.oftc.net.key",
+    target => "$::fqdn.key",
     require => Package['ca-certificates'],
   }
 }
