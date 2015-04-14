@@ -3,6 +3,7 @@
   :datadir: /etc/puppet/hieradata
 
 :hierarchy:
-  - "%{::clientcert}"
-  - "%{::osfamily}"
+  #- "%{::clientcert}"
+  #- "%{::osfamily}"
+  - "%{::environment}"
   - oftc
