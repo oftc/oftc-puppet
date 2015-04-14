@@ -1,3 +1,1 @@
-node default {
-  include oftc::common
-}
+# Nodes are configured in LDAP
