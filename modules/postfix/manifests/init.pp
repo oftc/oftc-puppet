@@ -1,8 +1,8 @@
 class postfix {
-  ensure_packages [
+  ensure_packages ([
     'postfix',
     'postfix-cdb',
-  ]
+  ])
 
   service { 'postfix': }
 

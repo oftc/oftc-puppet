@@ -1,8 +1,8 @@
 class munin::node {
-  ensure_packages [
+  ensure_packages ([
     'munin-node',
     'libnet-ssleay-perl',
-  ]
+  ])
 
   service { 'munin-node':
     ensure => running,

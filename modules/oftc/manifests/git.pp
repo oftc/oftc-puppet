@@ -1,5 +1,5 @@
 class oftc::git {
-  ensure_packages ['git']
+  ensure_packages (['git'])
 
   file { '/usr/local/oftc-tools':
     ensure => directory,

@@ -1,7 +1,7 @@
 class munin {
-  ensure_packages [
+  ensure_packages ([
     'munin',
-  ]
+  ])
 
   $hosts = hiera('hosts')
   $ircservers = hiera('ircservers')

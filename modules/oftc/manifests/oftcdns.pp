@@ -1,5 +1,5 @@
 class oftc::oftcdns {
-  ensure_packages [
+  ensure_packages ([
     'kwalify',
-  ]
+  ])
 }

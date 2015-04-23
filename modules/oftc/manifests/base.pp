@@ -1,5 +1,5 @@
 class oftc::base {
-  ensure_packages [
+  ensure_packages ([
     'at',
     'less',
     'lsb-release',
@@ -13,7 +13,7 @@ class oftc::base {
     'ulogd',
     'vim',
     'zsh',
-  ]
+  ])
 
   file { '/etc/bash.bashrc':
     mode => 0644, owner => root, group => root,

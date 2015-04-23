@@ -1,5 +1,5 @@
 class ntp {
-  ensure_packages ['ntp']
+  ensure_packages (['ntp'])
 
   service { 'ntp': }
 

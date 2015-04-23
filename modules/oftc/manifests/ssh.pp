@@ -1,5 +1,5 @@
 class oftc::ssh {
-  ensure_packages ['openssh-server', 'openssh-client']
+  ensure_packages (['openssh-server', 'openssh-client'])
 
   augeas { 'sshd_config':
     context => "/files/etc/ssh/sshd_config",

@@ -1,5 +1,5 @@
 class syslog-ng {
-  ensure_packages ['syslog-ng']
+  ensure_packages (['syslog-ng'])
 
   service { 'syslog-ng': }
 
