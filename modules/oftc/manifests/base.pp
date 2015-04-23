@@ -4,6 +4,7 @@ class oftc::base {
     'less',
     'lsb-release',
     'mtr-tiny',
+    'ncdu',
     'ntp',
     'psmisc',
     'subversion',
