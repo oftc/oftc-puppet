@@ -3,6 +3,7 @@ class oftc::base {
     'at',
     'less',
     'lsb-release',
+    'molly-guard',
     'mtr-tiny',
     'ncdu',
     'ntp',
