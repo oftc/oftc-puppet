@@ -1,6 +1,8 @@
 class oftc::base {
   ensure_packages ([
     'at',
+    'deborphan',
+    'dialog', # for deborphan's orphaner
     'less',
     'lsb-release',
     'molly-guard',
