@@ -16,9 +16,10 @@ class oftc::nrpe {
     notify => Service['nagios-nrpe-server'],
   }
 
+  $configserverips = join(hiera("configserverips"), ',')
   file { '/etc/nagios/nrpe.d/nrpe_oftc_config.cfg':
     mode => 0644, owner => root, group => root,
-    source => "puppet:///modules/oftc/nrpe_oftc_config.cfg",
+    content => template("oftc/nrpe_oftc_config.cfg"),
     require => Package['nagios-nrpe-server'],
     notify => Service['nagios-nrpe-server'],
   }
