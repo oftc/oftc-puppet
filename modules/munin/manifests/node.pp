@@ -9,21 +9,17 @@ class munin::node {
     enable => true,
   }
 
-  include stdlib
-  file_line { 'allow candela ipv4':
-    path => '/etc/munin/munin-node.conf',
-    line => 'allow 46.4.205.36',
-    after => '^allow \^::1',
-    require => Package['munin-node'],
-    notify => Service['munin-node'],
+  $configserverips = hiera("configserverips")
+  define munin_node_allow {
+    file_line { "munin-node allow $name":
+      path => '/etc/munin/munin-node.conf',
+      line => "allow $name",
+      after => '^allow \^::1',
+      require => Package['munin-node'],
+      notify => Service['munin-node'],
+    }
   }
-  file_line { 'allow candela ipv6':
-    path => '/etc/munin/munin-node.conf',
-    line => 'allow 2a01:4f8:131:1524::42',
-    after => '^allow \^::1',
-    require => Package['munin-node'],
-    notify => Service['munin-node'],
-  }
+  munin_node_allow { $configserverips: }
 
   file_line { 'tls enabled':
     path => '/etc/munin/munin-node.conf',
