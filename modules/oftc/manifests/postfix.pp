@@ -1,3 +1,3 @@
 class oftc::postfix {
-  include postfix
+  include ::postfix
 }
