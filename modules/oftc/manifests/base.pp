@@ -4,6 +4,7 @@ class oftc::base {
     'deborphan',
     'dialog', # for deborphan's orphaner
     'less',
+    'locales-all',
     'lsb-release',
     'molly-guard',
     'mtr-tiny',
