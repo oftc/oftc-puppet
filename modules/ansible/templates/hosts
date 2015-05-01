@@ -1,0 +1,18 @@
+<% @hosts.each do |host| -%>
+<%= host %>.oftc.net
+<% end -%>
+
+[irc]
+<% @irchosts.each do |irchost| -%>
+<%= irchost %>.oftc.net
+<% end -%>
+
+[oftcdns]
+<% @oftcdnshosts.each do |oftcdnshost| -%>
+<%= oftcdnshost %>.oftc.net
+<% end -%>
+
+[vservers]
+<% @vservers.each do |vserver| -%>
+<%= vserver %>.oftc.net
+<% end -%>
