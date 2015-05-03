@@ -48,6 +48,25 @@ alias showsrc='apt-cache showsrc'
 alias tree='tree -ACF'
 alias update='apt-get update'
 
+# Services
+if [ -d /run/systemd/system ]; then
+  start   () { sudo env -i /bin/systemctl start "$@"; }
+  stop    () { sudo env -i /bin/systemctl stop "$@"; }
+  status  () { sudo        /bin/systemctl status -l "$@"; }
+  reload  () { sudo env -i /bin/systemctl reload "$@"; }
+  restart () { sudo env -i /bin/systemctl restart "$@"; }
+  enable  () { sudo        /bin/systemctl enable "$@"; }
+  disable () { sudo        /bin/systemctl disable "$@"; }
+else
+  start   () { sudo env -i /usr/sbin/service $1 start; }
+  stop    () { sudo env -i /usr/sbin/service $1 stop; }
+  status  () { sudo        /usr/sbin/service $1 status; }
+  reload  () { sudo env -i /usr/sbin/service $1 reload; }
+  restart () { sudo env -i /usr/sbin/service $1 restart; }
+  enable  () { sudo        /usr/sbin/update-rc.d $1 enable; }
+  disable () { sudo        /usr/sbin/update-rc.d $1 disable; }
+fi
+
 nd ()
 {
     mkdir "$1" && cd "$1"
