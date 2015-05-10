@@ -29,4 +29,16 @@ class oftc::base {
     line => "#includedir /etc/sudoers.d\n",
     require => Package['sudo'],
   }
+
+  file_line { 'root mail alias':
+    path => '/etc/aliases',
+    line => "root: infrastructure@oftc.net\n",
+    match => "^root:",
+    notify => Exec['newaliases'],
+  }
+
+  exec { 'newaliases':
+    command => '/usr/bin/newaliases',
+    refreshonly => true,
+  }
 }
