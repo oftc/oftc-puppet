@@ -1,4 +1,5 @@
 class oftc {
+  include backuppc
   include oftc::base
   include oftc::cert
   include oftc::git
