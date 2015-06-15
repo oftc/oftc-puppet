@@ -21,7 +21,7 @@ class backuppc {
 
   $backupkey = hiera('backupkey')
   file { '/var/lib/backuppc-remote/.ssh/authorized_keys':
-    mode => '0644', owner => 'backuppc-remote', group => 'backuppc-remote',
+    mode => '0600', owner => 'backuppc-remote', group => 'backuppc-remote',
     content => "$backupkey\n",
   }
 
