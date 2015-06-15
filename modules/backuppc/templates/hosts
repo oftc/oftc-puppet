@@ -1,0 +1,5 @@
+# File managed by puppet
+host	dhcp	user	moreUsers	# <--- do not edit this line
+<% @hosts.each do |host| -%>
+<%= host %>	0	backuppc
+<% end %>
