@@ -25,4 +25,13 @@ class oftc::irc {
     require => Package['munin-node'],
     notify => Service['munin-node'],
   }
+
+  if ($operatingsystem == 'Debian' and $operatingsystemmajrelease >= 8) {
+    ensure_packages (['libpam-systemd'])
+
+    #exec { 'enable-linger-oftc':
+    #  command => '/bin/loginctl enable-linger oftc',
+    #  creates => '/var/lib/systemd/linger/oftc',
+    #}
+  }
 }
