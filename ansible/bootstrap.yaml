@@ -1,7 +1,7 @@
 # Bootstrap a (new) host for OFTC
 ---
 - hosts: all
-  #remote_user: root
+  remote_user: root
   tasks:
 
   - name: Check hostname
@@ -40,6 +40,8 @@
 
   - apt: name=puppet
 
+  - apt: name=lsb-release
+
   - name: Run puppet to request certificate
     shell: puppet agent -t --tags no_such_tag --waitforcert 0 || true
 
@@ -49,9 +51,12 @@
       creates: /var/lib/puppet/ssl/ca/signed/{{inventory_hostname}}.pem
     delegate_to: mole.oftc.net
 
-  - name: Configure munin on candela
-    copy: dest=/etc/munin/munin-conf.d/{{inventory_hostname}}.conf content="[{{inventory_hostname}}]\n address {{inventory_hostname}}\n use_node_name yes\n"
-    delegate_to: candela.oftc.net
+#  - name: Configure munin on candela
+#    copy: dest=/etc/munin/munin-conf.d/{{inventory_hostname}}.conf content="[{{inventory_hostname}}]\n address {{inventory_hostname}}\n use_node_name yes\n"
+#    delegate_to: candela.oftc.net
+
+  - name: Enable puppet agent
+    command: puppet agent --enable
 
   - name: Initial puppet run
     command: puppet agent -t --pluginsync
