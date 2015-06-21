@@ -6,4 +6,5 @@
   #- "%{::clientcert}"
   #- "%{::osfamily}"
   - "%{::environment}"
+  - "%{::fqdn}"
   - oftc
