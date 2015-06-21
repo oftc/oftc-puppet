@@ -9,7 +9,7 @@ class munin::node {
     enable => true,
   }
 
-  $configserverips = hiera("configserverips")
+  $muninaccess = hiera_array("muninaccess")
   define munin_node_allow {
     file_line { "munin-node allow $name":
       path => '/etc/munin/munin-node.conf',
@@ -19,7 +19,7 @@ class munin::node {
       notify => Service['munin-node'],
     }
   }
-  munin_node_allow { $configserverips: }
+  munin_node_allow { $muninaccess: }
 
   file_line { 'tls enabled':
     path => '/etc/munin/munin-node.conf',
