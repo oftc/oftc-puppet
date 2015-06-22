@@ -26,7 +26,7 @@ class oftc::irc {
     notify => Service['munin-node'],
   }
 
-  if ($operatingsystem == 'Debian' and $operatingsystemmajrelease >= 8) {
+  if ($operatingsystem == 'Debian' and $lsbmajdistrelease >= 8) {
     ensure_packages (['libpam-systemd'])
 
     #exec { 'enable-linger-oftc':
