@@ -1,10 +1,13 @@
 class oftc::base {
   ensure_packages ([
     'at',
+    'cron',
     'deborphan',
     'dialog', # for deborphan's orphaner
+    'iptables',
     'less',
     'locales-all',
+    'logrotate',
     'lsb-release',
     'molly-guard',
     'mtr-tiny',
