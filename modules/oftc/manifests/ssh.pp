@@ -11,6 +11,17 @@ class oftc::ssh {
     notify => Service['ssh'],
   }
 
+  file { '/etc/ssh/userkeys':
+    ensure => directory,
+  }
+
+  $rootkeys = hiera_array("rootkeys")
+  file { '/etc/ssh/userkeys/root':
+    mode => '0600', owner => root, group => root,
+    content => template('oftc/userkeys.root'),
+    require => File['/etc/ssh/userkeys'],
+  }
+
   service { 'ssh':
     ensure => running,
     enable => true,

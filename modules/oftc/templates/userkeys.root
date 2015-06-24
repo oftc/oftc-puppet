@@ -1,0 +1,3 @@
+<% @rootkeys.each do |rootkey| -%>
+<%= rootkey %>
+<% end -%>
