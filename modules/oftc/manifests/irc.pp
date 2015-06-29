@@ -26,12 +26,16 @@ class oftc::irc {
     notify => Service['munin-node'],
   }
 
-  if ($operatingsystem == 'Debian' and $lsbmajdistrelease >= 8) {
+  # init/oftc_user are custom facts from facts.d/oftc
+  if ($init == 'systemd') {
     ensure_packages (['libpam-systemd'])
 
-    #exec { 'enable-linger-oftc':
-    #  command => '/bin/loginctl enable-linger oftc',
-    #  creates => '/var/lib/systemd/linger/oftc',
-    #}
+    # needs first ud-replicate run for the user to exist
+    if ($oftc_user == 'true') {
+      exec { 'enable-linger-oftc':
+        command => '/bin/loginctl enable-linger oftc',
+        creates => '/var/lib/systemd/linger/oftc',
+      }
+    }
   }
 }

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if test -d /var/run/systemd/system; then
+	echo "init=systemd"
+else
+	echo "init=sysv"
+fi
+
+if getent passwd oftc > /dev/null 2>&1; then
+	echo "oftc_user=true"
+else
+	echo "oftc_user=false"
+fi
