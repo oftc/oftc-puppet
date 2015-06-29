@@ -1,0 +1,3 @@
+[system]
+init=<%= @init %>
+oftc_user=<%= @oftc_user %>

@@ -38,4 +38,19 @@ class oftc::irc {
       }
     }
   }
+
+  file { '/etc/ansible':
+    ensure => directory,
+  }
+
+  file { '/etc/ansible/facts.d':
+    ensure => directory,
+    require => File['/etc/ansible'],
+  }
+
+  file { '/etc/ansible/facts.d/oftc.fact':
+    mode => 0644, owner => root, group => root,
+    content => template('oftc/oftc.fact'),
+    require => File['/etc/ansible/facts.d'],
+  }
 }
