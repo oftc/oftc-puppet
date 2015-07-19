@@ -38,9 +38,15 @@
 
   #- apt: name=userdir-ldap
 
-  - apt: name=puppet
+  - apt: name=puppet-common
 
   - apt: name=lsb-release
+
+  - name: Configure backuppc on lux
+    command: ln -s oftc-common.pl /etc/backuppc/{{ansible_hostname}}.pl
+    args:
+      creates: /etc/backuppc/{{ansible_hostname}}.pl
+    delegate_to: lux.oftc.net
 
   - name: Run puppet to request certificate
     shell: puppet agent -t --tags no_such_tag --waitforcert 0 || true
