@@ -1,3 +1,4 @@
+nagios ALL=(ALL) NOPASSWD: /bin/systemctl --state=failed --no-legend
 nagios ALL=(ALL) NOPASSWD: /usr/bin/apt-get update
 nagios ALL=(ALL) NOPASSWD: /usr/bin/apt-get --simulate upgrade
 nagios ALL=(ALL) NOPASSWD: /usr/local/oftc-tools/infrastructure/nagios/nagios-check-libs
