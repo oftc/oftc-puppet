@@ -15,6 +15,7 @@ class oftc::base {
     'ncdu',
     'ntp',
     'psmisc',
+    'strace',
     'subversion',
     'sudo',
     'tree',
