@@ -18,6 +18,7 @@ class oftc::base {
     'strace',
     'subversion',
     'sudo',
+    'sysstat',
     'tree',
     'ulogd',
     'vim',
