@@ -1,0 +1,18 @@
+*** Targets ***
+
+probe = FPing
+
+menu = Top
+title = Network Latency Grapher
+remark = Welcome to the OFTC SmokePing. \
+         Here you will learn all about the latency of our network.
+
++ oftc
+menu = oftc
+title = OFTC Hosts
+
+<% @hosts.each do |host| -%>
+++ <%= host %>
+host = <%= host %>.oftc.net
+
+<% end %>
