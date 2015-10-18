@@ -1,15 +1,29 @@
+# File managed by Puppet
+
 *** Targets ***
 
 probe = FPing
+slaves = <%= @smokepingslaves %>
 
 menu = Top
 title = Network Latency Grapher
 remark = Welcome to the OFTC SmokePing. \
          Here you will learn all about the latency of our network.
 
-+ oftc
-menu = oftc
-title = OFTC Hosts
++ oftc4
+menu = IPv4
+title = OFTC Hosts on IPv4
+
+<% @hosts.each do |host| -%>
+++ <%= host %>
+host = <%= host %>.oftc.net
+
+<% end %>
+
++ oftc6
+probe = FPing6
+menu = IPv6
+title = OFTC Hosts on IPv6
 
 <% @hosts.each do |host| -%>
 ++ <%= host %>
