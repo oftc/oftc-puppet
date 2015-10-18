@@ -10,7 +10,7 @@ title = Network Latency Grapher
 remark = Welcome to the OFTC SmokePing. \
          Here you will learn all about the latency of our network.
 
-+ oftc4
++ ipv4
 menu = IPv4
 title = OFTC Hosts on IPv4
 
@@ -20,7 +20,7 @@ host = <%= host %>.oftc.net
 
 <% end %>
 
-+ oftc6
++ ipv6
 probe = FPing6
 menu = IPv6
 title = OFTC Hosts on IPv6
