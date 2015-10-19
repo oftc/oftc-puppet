@@ -11,4 +11,10 @@ class oftc::git {
     refreshonly => true,
     require => Package['git'],
   }
+
+  exec { 'git config':
+    command => '/bin/sh -c "export HOME=/root; git config --global user.name \"OFTC Administrator\"; git config --global user.email root@oftc.net"',
+    creates => '/root/.gitconfig',
+    require => Package['git'],
+  }
 }
