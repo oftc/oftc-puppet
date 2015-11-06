@@ -26,6 +26,7 @@ options {
 		<%= bind_listen_v4 %>;
 	};
 	listen-on-v6 {
+		::1;
 		<%= bind_listen_v6 %>;
 	};
 };
