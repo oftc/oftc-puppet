@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+cd /var/cache/bind
+
+file="GeoIP.acl"
+url="phix.me/geodns/download/MaxMind/$file.bz2"
+
+wget --mirror --quiet "https://$url"
+
+# remove bogus empty file
+test -s $file || rm -f $file
+# check if file needs refresh
+if ! [ $file -nt $url ]; then
+  # unzip and check if file is in expected format
+  bzcat $url | egrep '^(acl "\w+" {|	[0-9a-f.:]+/[0-9]+;|};)$' > $file.tmp
+  mv $file.tmp $file
+  rndc reload
+fi

@@ -1,0 +1,103 @@
+include "/var/cache/bind/GeoIP.acl";
+include "/etc/bind/continents.acl";
+include "/etc/bind/geodns.keys";
+
+view "EU" {
+	match-clients {
+		key eu.geo.oftc.net.;
+		! key na.geo.oftc.net.;
+		! key default.geo.oftc.net.;
+		Africa;
+		Asia;
+		Europe;
+	};
+
+	<%- @dns_masters.each do |master| -%>
+	server <%= master %> {
+		keys { eu.geo.oftc.net.; };
+	};
+	<%- end -%>
+
+	//include "/etc/bind/named.conf.local";
+	include "/etc/bind/named.conf.default-zones";
+
+	zone "geodns.oftc.net" {
+		type slave;
+		file "db.eu.geodns.oftc.net";
+		allow-query { any; };
+		masters {
+			<%- @dns_masters.each do |master| -%>
+			<%= master %>;
+			<%- end -%>
+		};
+		transfer-source <%= bind_listen_v4 %>;
+		transfer-source-v6 <%= bind_listen_v6 %>;
+	};
+};
+
+view "NA" {
+	match-clients {
+		! key eu.geo.oftc.net.;
+		key na.geo.oftc.net.;
+		! key default.geo.oftc.net.;
+		North_America;
+		South_America;
+		Oceania;
+		Antarctica;
+	};
+
+	<%- @dns_masters.each do |master| -%>
+	server <%= master %> {
+		keys { na.geo.oftc.net.; };
+	};
+	<%- end -%>
+
+	//include "/etc/bind/named.conf.local";
+	include "/etc/bind/named.conf.default-zones";
+
+	zone "geodns.oftc.net" {
+		type slave;
+		file "db.na.geodns.oftc.net";
+		allow-query { any; };
+		masters {
+			<%- @dns_masters.each do |master| -%>
+			<%= master %>;
+			<%- end -%>
+		};
+		transfer-source <%= bind_listen_v4 %>;
+		transfer-source-v6 <%= bind_listen_v6 %>;
+	};
+};
+
+view "default" {
+	match-clients {
+		! key eu.geo.oftc.net.;
+		! key na.geo.oftc.net.;
+		key default.geo.oftc.net.;
+		any;
+	};
+
+	<%- @dns_masters.each do |master| -%>
+	server <%= master %> {
+		keys { default.geo.oftc.net.; };
+	};
+	<%- end -%>
+
+	//include "/etc/bind/named.conf.local";
+	include "/etc/bind/named.conf.default-zones";
+
+	zone "geodns.oftc.net" {
+		type slave;
+		file "db.default.geodns.oftc.net";
+		allow-query { any; };
+		masters {
+			<%- @dns_masters.each do |master| -%>
+			<%= master %>;
+			<%- end -%>
+		};
+		transfer-source <%= bind_listen_v4 %>;
+		transfer-source-v6 <%= bind_listen_v6 %>;
+	};
+};
+
+// vim:syn=named:

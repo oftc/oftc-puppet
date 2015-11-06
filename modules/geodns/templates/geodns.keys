@@ -1,0 +1,7 @@
+<% @geodns_keys.each do |key| -%>
+key <%= key['name'] %> {
+	algorithm HMAC-MD5;
+	secret "<%= key['secret'] %>";
+};
+
+<% end -%>

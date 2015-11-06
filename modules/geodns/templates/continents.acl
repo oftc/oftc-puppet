@@ -1,0 +1,50 @@
+acl Africa {
+	AO; BF; BI; BJ; BW; CD; CF; CG; CI; CM; CV; DJ; DZ; EG; ER; ET;
+	GA; GH; GM; GN; GQ; GW; KE; KM; LR; LS; LY; MA; MG; ML; MR; MU; MW;
+	MZ; NA; NE; NG; RE; RW; SC; SD; SH; SL; SN; SO; ST; SZ; TD; TG; TN;
+	TZ; UG; YT; ZA; ZM; ZW;
+};
+
+acl Asia {
+	AP; // global region Asia/Pacific
+	AE; AF; AM; AZ; BD; BH; BN; BT; CC; CN; CX; CY; GE; HK; ID; IL; IN;
+	IO; IQ; IR; JO; JP; KG; KH; KP; KR; KW; KZ; LA; LB; LK; MM; MN; MO;
+	MV; MY; NP; OM; PH; PK; PS; QA; SA; SG; SY; TH; TJ; TL; TM; TW; UZ;
+	VN; YE;
+};
+
+acl Europe {
+	EU; // global region Europe
+	AD; AL; AT; AX; BA; BE; BG; BY; CH; CZ; DE; DK; EE; ES; FI; FO; FR;
+	GB; GG; GI; GR; HR; HU; IE; IM; IS; IT; JE; LI; LT; LU; LV; MC; MD;
+	ME; MK; MT; NL; NO; PL; PT; RO; RS; RU; SE; SI; SJ; SK; SM; TR; UA;
+	VA;
+};
+
+acl North_America {
+	AG; AI; AW; BB; BL; BM; BS; BZ; CA; CR; CU; DM; DO; GD; GL; GP;
+	GT; HN; HT; JM; KN; KY; LC; MF; MQ; MS; MX; NI; PA; PM; PR; SV; TC;
+	TT; US; UY; VC; VG; VI;
+};
+
+acl South_America {
+	AR; BO; BR; CL; CO; EC; FK; GF; GY; PE; PY; SR; VE;
+};
+
+acl Oceania {
+	AS; AU; CK; FJ; FM; GU; KI; MH; MP; NC; NF; NR; NU; NZ; PF; PG; PN;
+	PW; SB; TK; TO; TV; UM; VU; WF; WS;
+};
+
+acl Antarctica {
+	AQ; GS; TF;
+};
+
+acl undef {
+	A1;
+	A2;
+	8.8.8.8/32; // Google DNS Server fails with GeoIP
+	8.8.4.4/32; // Google DNS Server fails with GeoIP
+	208.67.222.222/32; // OpenDNS fails with GeoIP
+	208.67.220.220/32; // OpenDNS fails with GeoIP
+};
