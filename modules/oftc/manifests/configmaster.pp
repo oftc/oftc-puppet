@@ -3,4 +3,5 @@ class oftc::configmaster {
   include munin
   include smokeping
   include userdir-ldap::master
+  include ::geodns
 }
