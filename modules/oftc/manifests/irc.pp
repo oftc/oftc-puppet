@@ -6,6 +6,10 @@ class oftc::irc {
     'flex',
     'zlib1g-dev',
     'libssl-dev',
+    # building from git:
+    'automake',
+    'libltdl-dev',
+    'libtool',
   ])
 
   file { '/etc/security/limits.d/oftc_limits.conf':
