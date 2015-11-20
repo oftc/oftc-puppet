@@ -32,6 +32,7 @@ view "EU" {
 		};
 		transfer-source <%= bind_listen_v4 %>;
 		transfer-source-v6 <%= bind_listen_v6 %>;
+		notify no;
 	};
 };
 
@@ -66,6 +67,7 @@ view "NA" {
 		};
 		transfer-source <%= bind_listen_v4 %>;
 		transfer-source-v6 <%= bind_listen_v6 %>;
+		notify no;
 	};
 };
 
@@ -97,6 +99,7 @@ view "default" {
 		};
 		transfer-source <%= bind_listen_v4 %>;
 		transfer-source-v6 <%= bind_listen_v6 %>;
+		notify no;
 	};
 };
 
