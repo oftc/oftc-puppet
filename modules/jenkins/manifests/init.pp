@@ -12,6 +12,10 @@ class jenkins {
     require => Apt::Source['jenkins'],
   }
 
+  ensure_packages ([
+    'ccache',
+  ])
+
   file { '/etc/sudoers.d/jenkins':
     mode => '0400', owner => root, group => root,
     source => "puppet:///modules/jenkins/sudoers",

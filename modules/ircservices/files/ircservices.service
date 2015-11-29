@@ -1,0 +1,13 @@
+[Unit]
+Description=OFTC IRC Services
+
+[Service]
+ExecStart=/home/oftc/ircservices/services/bin/services -foreground
+ExecReload=/bin/kill -HUP $MAINPID
+#PIDFile=/home/oftc/oftc/hybrid/etc/ircd.pid
+Restart=on-failure
+LimitCORE=infinity
+LimitNOFILE=8192
+
+[Install]
+WantedBy=default.target
