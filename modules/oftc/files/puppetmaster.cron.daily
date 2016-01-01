@@ -1,3 +1,3 @@
 #!/bin/sh
 
-find /var/lib/puppet/reports -type f -mtime +14 | xargs -r rm
+find /var/lib/puppet/reports -type f -mtime +7 | xargs -r rm
