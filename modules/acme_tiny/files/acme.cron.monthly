@@ -6,6 +6,8 @@ umask 022
 cd /etc/acme
 test -s domains || exit 0
 
+[ "$1" = "-n" ] && NOACME=1
+
 while read domain; do
   # generate key
   key="/etc/ssl/private/$domain.key"
@@ -21,9 +23,11 @@ while read domain; do
   test -f $domain.csr || openssl req -new -sha256 -key $key -subj "/CN=$domain" > $domain.csr
 
   # generate crt
-  test -f $domain.crt && savelog $domain.crt
-  acme_tiny --account-key account.key \
-    --csr $domain.csr --acme-dir /var/www/acme/ > $domain.crt
+  if [ -z "${NOACME:-}" ]; then
+    test -f $domain.crt && savelog $domain.crt
+    acme_tiny --account-key account.key \
+      --csr $domain.csr --acme-dir /var/www/acme/ > $domain.crt
+  fi
   test -s $domain.crt
 
   # install chain cert
