@@ -1,6 +1,8 @@
 class oftc::www {
   ensure_packages([
-    'apache2'
+    'apache2',
+    'jekyll',
+    'ruby-gsl',
   ])
   include acme_tiny
 }
