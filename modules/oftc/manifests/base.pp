@@ -47,4 +47,8 @@ class oftc::base {
     command => '/usr/bin/newaliases',
     refreshonly => true,
   }
+
+  file { '/etc/mailname':
+    mode => 0644, owner => root, group => root,
+  }
 }
