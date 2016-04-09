@@ -4,5 +4,4 @@ class oftc::www {
     'jekyll',
     'ruby-gsl',
   ])
-  include acme_tiny
 }
