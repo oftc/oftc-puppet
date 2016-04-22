@@ -19,10 +19,11 @@ class ircservices {
   }
 
   file {[
+    '/home/oftc/ircservices/',
     '/home/oftc/ircservices/.config/',
     '/home/oftc/ircservices/.config/systemd/',
     '/home/oftc/ircservices/.config/systemd/user/',
-    '/home/oftc/ircservices/.config/systemd/user/default.target.wants/',
+    #'/home/oftc/ircservices/.config/systemd/user/default.target.wants/',
   ]:
     ensure => directory,
     owner => ircservices, group => ircservices, mode => 755,
@@ -33,10 +34,10 @@ class ircservices {
     source => "puppet:///modules/ircservices/ircservices.service",
   }
 
-  file { '/home/oftc/ircservices/.config/systemd/user/default.target.wants/ircservices.service':
-    owner => ircservices, group => ircservices, mode => 644,
-    ensure => link,
-    target => '../ircservices.service',
-  }
+  #file { '/home/oftc/ircservices/.config/systemd/user/default.target.wants/ircservices.service':
+  #  owner => ircservices, group => ircservices, mode => 644,
+  #  ensure => link,
+  #  target => '../ircservices.service',
+  #}
 
 }
