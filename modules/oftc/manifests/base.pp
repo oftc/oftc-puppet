@@ -10,6 +10,7 @@ class oftc::base {
     'locales-all',
     'logrotate',
     'lsb-release',
+    'mlocate',
     'molly-guard',
     'mtr-tiny',
     'ncdu',
