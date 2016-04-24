@@ -1,5 +1,5 @@
 <% @oftchosts.each do |host| -%>
-<%= host %>.oftc.net
+<%= host['name'] %>.oftc.net
 <% end -%>
 
 [irc]

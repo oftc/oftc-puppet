@@ -15,7 +15,7 @@ menu = IPv4
 title = OFTC Hosts on IPv4
 
 <% @oftchosts.each do |host| -%>
-++ <%= host %>
+++ <%= host['name'] %>
 host = <%= host %>.oftc.net
 
 <% end %>
@@ -26,7 +26,7 @@ menu = IPv6
 title = OFTC Hosts on IPv6
 
 <% @oftchosts.each do |host| -%>
-++ <%= host %>
+++ <%= host['name'] %>
 host = <%= host %>.oftc.net
 
 <% end %>

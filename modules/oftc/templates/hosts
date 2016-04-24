@@ -1,5 +1,5 @@
 # All OFTC hosts
 # File managed by puppet, do not edit
 <% @oftchosts.each do |host| -%>
-<%= host %>.oftc.net
+<%= host['name'] %>.oftc.net
 <% end -%>
