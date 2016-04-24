@@ -5,7 +5,7 @@ class oftc::configmaster {
   include userdir-ldap::master
   include ::geodns
 
-  $hosts = hiera('hosts')
+  $oftchosts = hiera('oftchosts')
 
   file { '/etc/oftc/acme/.domains.oftc.txt':
     mode => 0644, owner => root, group => root,

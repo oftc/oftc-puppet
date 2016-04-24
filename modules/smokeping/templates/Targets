@@ -14,7 +14,7 @@ remark = Welcome to the OFTC SmokePing. \
 menu = IPv4
 title = OFTC Hosts on IPv4
 
-<% @hosts.each do |host| -%>
+<% @oftchosts.each do |host| -%>
 ++ <%= host %>
 host = <%= host %>.oftc.net
 
@@ -25,7 +25,7 @@ probe = FPing6
 menu = IPv6
 title = OFTC Hosts on IPv6
 
-<% @hosts.each do |host| -%>
+<% @oftchosts.each do |host| -%>
 ++ <%= host %>
 host = <%= host %>.oftc.net
 

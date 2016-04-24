@@ -1,4 +1,4 @@
-<% @hosts.each do |host| -%>
+<% @oftchosts.each do |host| -%>
 <%= host %>.oftc.net
 <% end -%>
 

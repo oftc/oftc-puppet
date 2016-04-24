@@ -1,7 +1,7 @@
 class ansible {
   ensure_packages(['ansible'])
 
-  $hosts = hiera('hosts')
+  $oftchosts = hiera('oftchosts')
   $irchosts = hiera('irchosts')
   $ircservers = hiera('ircservers')
   $oftcdnshosts = hiera('oftcdnshosts')

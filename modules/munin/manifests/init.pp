@@ -3,7 +3,7 @@ class munin {
     'munin',
   ])
 
-  $hosts = hiera('hosts')
+  $oftchosts = hiera('oftchosts')
   $ircservers = hiera('ircservers')
   file { '/etc/munin/munin.conf':
     mode => 0644, owner => root, group => root,
