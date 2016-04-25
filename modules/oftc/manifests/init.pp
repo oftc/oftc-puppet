@@ -2,6 +2,7 @@ class oftc {
   include backuppc
   include oftc::base
   include oftc::cert
+  include ferm
   include oftc::git
   include munin::node
   include oftc::nrpe

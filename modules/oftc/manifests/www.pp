@@ -4,4 +4,10 @@ class oftc::www {
     'jekyll',
     'ruby-gsl',
   ])
+
+  ferm::port { 'www':
+    port => 'http https',
+    target => 'ACCEPT',
+  }
+
 }

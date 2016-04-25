@@ -44,6 +44,7 @@ class oftc::irc {
     }
   }
 
+  # ansible facts
   file { '/etc/ansible':
     ensure => directory,
   }
@@ -57,5 +58,16 @@ class oftc::irc {
     mode => 0644, owner => root, group => root,
     content => template('oftc/oftc.fact'),
     require => File['/etc/ansible/facts.d'],
+  }
+
+  # firewall
+  ferm::port { 'irc':
+    sequence => 50,
+    port => hiera('ircports_public'),
+    target => 'ACCEPT',
+  }
+  ferm::port { 'testnet':
+    sequence => 51,
+    port => hiera('ircports_private'),
   }
 }
