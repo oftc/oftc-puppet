@@ -16,7 +16,7 @@ title = OFTC Hosts on IPv4
 
 <% @oftchosts.each do |host| -%>
 ++ <%= host['name'] %>
-host = <%= host %>.oftc.net
+host = <%= host['name'] %>.oftc.net
 
 <% end %>
 
@@ -27,6 +27,6 @@ title = OFTC Hosts on IPv6
 
 <% @oftchosts.each do |host| -%>
 ++ <%= host['name'] %>
-host = <%= host %>.oftc.net
+host = <%= host['name'] %>.oftc.net
 
 <% end %>
