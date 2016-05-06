@@ -4,6 +4,7 @@ class ferm {
   $ircports_public = hiera('ircports_public')
   $ircports_private = hiera('ircports_private')
   $oftchosts = hiera('oftchosts')
+  $oftcaccounts = hiera('oftcaccounts')
   $admin_ip4 = hiera_array('admin_ip4')
   $admin_ip6 = hiera_array('admin_ip6')
   $staff_ip4 = hiera_array('staff_ip4')
