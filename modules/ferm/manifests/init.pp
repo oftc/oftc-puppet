@@ -39,7 +39,10 @@ class ferm {
     content => "\n# ferm.conf.foot\ndomain (ip ip6) chain (INPUT FORWARD) REJECT;\n",
   }
 
-  service { 'ferm': }
+  service { 'ferm':
+    hasstatus => false,
+    status => '/bin/true',
+  }
 
   file { '/etc/ferm/Makefile':
     owner => root, group => root, mode => '0644',
