@@ -1,0 +1,13 @@
+
+# ferm.conf.foot
+
+domain (ip ip6) {
+  chain INPUT {
+    proto tcp mod limit limit 1/sec LOG log-prefix "$DOMAIN/tcp REJECT: ";
+    proto udp mod limit limit 1/sec LOG log-prefix "$DOMAIN/udp REJECT: ";
+    REJECT;
+  }
+
+  chain FORWARD <%= @forward_final %>;
+}
+

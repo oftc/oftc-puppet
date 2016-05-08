@@ -11,4 +11,7 @@ class oftc::configmaster {
     mode => 0644, owner => root, group => root,
     content => template('oftc/hosts'),
   }
+
+  include oftc::domain
+
 }

@@ -10,4 +10,14 @@ class userdir-ldap::master {
     mode => 0644, owner => root, group => root,
     content => template('userdir-ldap/cron.d.ud-generate'),
   }
+
+  ferm::port { 'ldap':
+    port => 'ldap ldaps',
+  }
+
+  ferm::port { 'www':
+    port => 'http https',
+    target => 'ACCEPT',
+  }
+
 }

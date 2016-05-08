@@ -40,4 +40,5 @@ class ircservices {
   #  target => '../ircservices.service',
   #}
 
+  include oftc::postgresql
 }

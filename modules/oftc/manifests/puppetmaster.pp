@@ -5,4 +5,8 @@ class oftc::puppetmaster {
     mode => 0755, owner => root, group => root,
     source => "puppet:///modules/oftc/puppetmaster.cron.daily",
   }
+
+  ferm::port { 'puppetmaster':
+    port => '8140',
+  }
 }
