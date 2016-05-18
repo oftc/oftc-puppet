@@ -58,11 +58,22 @@ class munin::node {
   }
 
   munin::plugin {[
+    'cpu',
     'df',
     'df_abs',
     'df_inode',
+    'diskstats',
+    'fw_conntrack',
+    'fw_packets',
+    'interrupts',
+    'load',
     'memory',
+    'ntp_offset',
     'netstat',
     'processes',
   ]:}
+
+  munin::plugin { 'if_eth0':
+    plugin => 'if_',
+  }
 }
