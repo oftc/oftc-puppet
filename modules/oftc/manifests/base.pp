@@ -31,6 +31,12 @@ class oftc::base {
     source => "puppet:///modules/oftc/bash.bashrc",
   }
 
+  file { '/etc/cron.hourly/apt':
+    mode => 0755, owner => root, group => root,
+    source => "puppet:///modules/oftc/cron-apt",
+    require => Package['cron'],
+  }
+
   file_line { 'sudoers.d':
     path => '/etc/sudoers',
     line => "#includedir /etc/sudoers.d\n",

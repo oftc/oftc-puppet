@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+
+MINUTES=239 # wait time after successful apt update
+
+cd /var/lib/apt
+
+if find update_success -mmin -$MINUTES 2>/dev/null | grep -q update_success; then
+  exit 0
+fi
+
+apt-get update -qq > update_output 2>&1
+
+if [ ! -s update_output ]; then
+  date -u > update_success
+fi
