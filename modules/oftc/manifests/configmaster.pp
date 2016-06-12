@@ -14,4 +14,8 @@ class oftc::configmaster {
 
   include oftc::domain
 
+  # accept mail for db.oftc.net
+  ferm::port { 'smtp':
+    target => 'ACCEPT',
+  }
 }
