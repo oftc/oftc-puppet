@@ -1,48 +1,287 @@
-acl Africa {
-	AO; BF; BI; BJ; BW; CD; CF; CG; CI; CM; CV; DJ; DZ; EG; ER; ET;
-	GA; GH; GM; GN; GQ; GW; KE; KM; LR; LS; LY; MA; MG; ML; MR; MU; MW;
-	MZ; NA; NE; NG; RE; RW; SC; SD; SH; SL; SN; SO; ST; SZ; TD; TG; TN;
-	TZ; UG; YT; ZA; ZM; ZW;
+//
+// THIS FILE IS UNDER PUPPET CONTROL. DON'T EDIT IT HERE.
+// USE: git clone git+ssh://$USER@puppet.debian.org/srv/puppet.debian.org/git/dsa-puppet.git
+//
+
+// Africa
+acl AF {
+	country_AO;
+	country_BF;
+	country_BI;
+	country_BJ;
+	country_BW;
+	country_CD;
+	country_CF;
+	country_CG;
+	country_CI;
+	country_CM;
+	country_CV;
+	country_DJ;
+	country_DZ;
+	country_EG;
+	country_EH;
+	country_ER;
+	country_ET;
+	country_GA;
+	country_GH;
+	country_GM;
+	country_GN;
+	country_GQ;
+	country_GW;
+	country_KE;
+	country_KM;
+	country_LR;
+	country_LS;
+	country_LY;
+	country_MA;
+	country_MG;
+	country_ML;
+	country_MR;
+	country_MU;
+	country_MW;
+	country_MZ;
+	country_NA;
+	country_NE;
+	country_NG;
+	country_RE;
+	country_RW;
+	country_SC;
+	country_SD;
+	country_SH;
+	country_SL;
+	country_SN;
+	country_SO;
+	country_ST;
+	country_SZ;
+	country_TD;
+	country_TG;
+	country_TN;
+	country_TZ;
+	country_UG;
+	country_YT;
+	country_ZA;
+	country_ZM;
+	country_ZW;
 };
 
-acl Asia {
-	AP; // global region Asia/Pacific
-	AE; AF; AM; AZ; BD; BH; BN; BT; CC; CN; CX; CY; GE; HK; ID; IL; IN;
-	IO; IQ; IR; JO; JP; KG; KH; KP; KR; KW; KZ; LA; LB; LK; MM; MN; MO;
-	MV; MY; NP; OM; PH; PK; PS; QA; SA; SG; SY; TH; TJ; TL; TM; TW; UZ;
-	VN; YE;
+// Asia
+acl AS {
+	country_AE;
+	country_AF;
+	country_AM;
+	country_AP; // global region Asia/Pacific
+	country_AZ;
+	country_BD;
+	country_BH;
+	country_BN;
+	country_BT;
+	country_CC;
+	country_CN;
+	country_CX;
+	country_CY;
+	country_GE;
+	country_HK;
+	country_ID;
+	country_IL;
+	country_IN;
+	country_IO;
+	country_IQ;
+	country_IR;
+	country_JO;
+	country_JP;
+	country_KG;
+	country_KH;
+	country_KP;
+	country_KR;
+	country_KW;
+	country_KZ;
+	country_LA;
+	country_LB;
+	country_LK;
+	country_MM;
+	country_MN;
+	country_MO;
+	country_MV;
+	country_MY;
+	country_NP;
+	country_OM;
+	country_PH;
+	country_PK;
+	country_PS;
+	country_QA;
+	country_SA;
+	country_SG;
+	country_SY;
+	country_TH;
+	country_TJ;
+	country_TL;
+	country_TM;
+	country_TW;
+	country_UZ;
+	country_VN;
+	country_YE;
 };
 
-acl Europe {
-	EU; // global region Europe
-	AD; AL; AT; AX; BA; BE; BG; BY; CH; CZ; DE; DK; EE; ES; FI; FO; FR;
-	GB; GG; GI; GR; HR; HU; IE; IM; IS; IT; JE; LI; LT; LU; LV; MC; MD;
-	ME; MK; MT; NL; NO; PL; PT; RO; RS; RU; SE; SI; SJ; SK; SM; TR; UA;
-	VA;
+// Europe
+acl EU {
+	country_AD;
+	country_AL;
+	country_AT;
+	country_AX;
+	country_BA;
+	country_BE;
+	country_BG;
+	country_BY;
+	country_CH;
+	country_CZ;
+	country_DE;
+	country_DK;
+	country_EE;
+	country_ES;
+	country_EU; // global region Europe
+	country_FI;
+	country_FO;
+	country_FR;
+	country_GB;
+	country_GG;
+	country_GI;
+	country_GR;
+	country_HR;
+	country_HU;
+	country_IE;
+	country_IM;
+	country_IS;
+	country_IT;
+	country_JE;
+	country_LI;
+	country_LT;
+	country_LU;
+	country_LV;
+	country_MC;
+	country_MD;
+	country_ME;
+	country_MK;
+	country_MT;
+	country_NL;
+	country_NO;
+	country_PL;
+	country_PT;
+	country_RO;
+	country_RS;
+	country_RU;
+	country_SE;
+	country_SI;
+	country_SJ;
+	country_SK;
+	country_SM;
+	country_TR;
+	country_UA;
+	country_VA;
 };
 
-acl North_America {
-	AG; AI; AW; BB; BL; BM; BS; BZ; CA; CR; CU; DM; DO; GD; GL; GP;
-	GT; HN; HT; JM; KN; KY; LC; MF; MQ; MS; MX; NI; PA; PM; PR; SV; TC;
-	TT; US; UY; VC; VG; VI;
+// North America
+acl NA {
+	country_AG;
+	country_AI;
+	country_AN;
+	country_AW;
+	country_BB;
+	country_BL;
+	country_BM;
+	country_BS;
+	country_BZ;
+	country_CA;
+	country_CR;
+	country_CU;
+	country_DM;
+	country_DO;
+	country_GD;
+	country_GL;
+	country_GP;
+	country_GT;
+	country_HN;
+	country_HT;
+	country_JM;
+	country_KN;
+	country_KY;
+	country_LC;
+	country_MF;
+	country_MQ;
+	country_MS;
+	country_MX;
+	country_NI;
+	country_PA;
+	country_PM;
+	country_PR;
+	country_SV;
+	country_TC;
+	country_TT;
+	country_US;
+	country_UY;
+	country_VC;
+	country_VG;
+	country_VI;
 };
 
-acl South_America {
-	AR; BO; BR; CL; CO; EC; FK; GF; GY; PE; PY; SR; VE;
+// South America
+acl SA {
+	country_AR;
+	country_BO;
+	country_BR;
+	country_CL;
+	country_CO;
+	country_EC;
+	country_FK;
+	country_GF;
+	country_GY;
+	country_PE;
+	country_PY;
+	country_SR;
+	country_VE;
 };
 
-acl Oceania {
-	AS; AU; CK; FJ; FM; GU; KI; MH; MP; NC; NF; NR; NU; NZ; PF; PG; PN;
-	PW; SB; TK; TO; TV; UM; VU; WF; WS;
+// Oceania
+acl OC {
+	country_AS;
+	country_AU;
+	country_CK;
+	country_FJ;
+	country_FM;
+	country_GU;
+	country_KI;
+	country_MH;
+	country_MP;
+	country_NC;
+	country_NF;
+	country_NR;
+	country_NU;
+	country_NZ;
+	country_PF;
+	country_PG;
+	country_PN;
+	country_PW;
+	country_SB;
+	country_TK;
+	country_TO;
+	country_TV;
+	country_UM;
+	country_VU;
+	country_WF;
+	country_WS;
 };
 
-acl Antarctica {
-	AQ; GS; TF;
+// Antarctica
+acl AN {
+	country_AQ;
+	country_BV;
+	country_GS;
+	country_HM;
+	country_TF;
 };
 
 acl undef {
-	A1;
-	A2;
+	country_A1;
+	country_A2;
 	8.8.8.8/32; // Google DNS Server fails with GeoIP
 	8.8.4.4/32; // Google DNS Server fails with GeoIP
 	208.67.222.222/32; // OpenDNS fails with GeoIP

@@ -2,6 +2,7 @@ class geodns::common {
   ensure_packages ([
     'bind9',
     'bind9utils',
+    'geoip-database-contrib',
   ])
 
   $geodns_keys = hiera('geodns_keys')
@@ -17,16 +18,6 @@ class geodns::common {
     content => template('geodns/continents.acl'),
     require => Package['bind9'],
     notify => Service['bind9'],
-  }
-
-  file { '/usr/local/bin/geodns-fetch':
-    mode => '755',
-    content => template('geodns/geodns-fetch'),
-  }
-
-  file { '/etc/cron.weekly/geodns-fetch':
-    ensure => link,
-    target => '/usr/local/bin/geodns-fetch',
   }
 
   service { 'bind9': }

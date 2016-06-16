@@ -1,4 +1,3 @@
-include "/var/cache/bind/GeoIP.acl";
 include "/etc/bind/continents.acl";
 include "/etc/bind/geodns.keys";
 
@@ -7,9 +6,9 @@ view "EU" {
 		key eu.geo.oftc.net.;
 		! key na.geo.oftc.net.;
 		! key default.geo.oftc.net.;
-		Africa;
-		Asia;
-		Europe;
+		AF;
+		AS;
+		EU;
 	};
 
 	<%- @dns_masters.each do |master| -%>
@@ -41,10 +40,10 @@ view "NA" {
 		! key eu.geo.oftc.net.;
 		key na.geo.oftc.net.;
 		! key default.geo.oftc.net.;
-		North_America;
-		South_America;
-		Oceania;
-		Antarctica;
+		NA;
+		SA;
+		OC;
+		AN;
 	};
 
 	<%- @dns_masters.each do |master| -%>
