@@ -11,16 +11,9 @@ class geodns::slave {
   }
 
   $dns_masters = hiera('dns_masters')
-  file { '/etc/bind/named.conf.geodns':
-    mode => '644',
-    content => template('geodns/named.conf.geodns'),
-    require => Package['bind9'],
-    notify => Service['bind9'],
-  }
-
   file { '/etc/bind/named.conf':
     mode => '644',
-    content => template('geodns/named.conf'),
+    content => template('geodns/named.conf.slave'),
     require => Package['bind9'],
     notify => Service['bind9'],
   }

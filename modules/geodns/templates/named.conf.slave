@@ -1,3 +1,5 @@
+include "/etc/bind/named.conf.options";
+
 include "/etc/bind/continents.acl";
 include "/etc/bind/geodns.keys";
 
