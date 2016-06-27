@@ -69,5 +69,6 @@ class oftc::irc {
   ferm::port { 'testnet':
     sequence => 51,
     port => hiera('ircports_private'),
+    target => 'jump STAFF',
   }
 }
