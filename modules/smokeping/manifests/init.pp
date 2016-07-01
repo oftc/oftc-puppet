@@ -5,6 +5,7 @@ class smokeping {
   ])
 
   $oftchosts = hiera('oftchosts')
+  $oftcaccounts = hiera('oftcaccounts')
   $smokepingslaves = hiera('smokepingslaves')
   file { '/etc/smokeping/config.d/Targets':
     mode => "0644", owner => root, group => root,

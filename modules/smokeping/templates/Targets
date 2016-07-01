@@ -20,6 +20,13 @@ host = <%= host['name'] %>.oftc.net
 
 <% end %>
 
+<% @oftcaccounts.each do |host| -%>
+++ <%= host['hybridname'] %>
+menu = <%= host['name'] %>
+host = <%= host['ip4'] %>
+
+<% end %>
+
 + ipv6
 probe = FPing6
 menu = IPv6
@@ -29,6 +36,15 @@ title = OFTC Hosts on IPv6
 <% if host['ip6'] -%>
 ++ <%= host['name'] %>
 host = <%= host['name'] %>.oftc.net
+
+<%- end -%>
+<% end %>
+
+<% @oftcaccounts.each do |host| -%>
+<% if host['ip6'] -%>
+++ <%= host['hybridname'] %>
+menu = <%= host['name'] %>
+host = <%= host['ip6'] %>
 
 <%- end -%>
 <% end %>
