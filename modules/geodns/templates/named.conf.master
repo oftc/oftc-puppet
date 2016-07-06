@@ -16,9 +16,9 @@ view "EU" {
 	include "/etc/bind/named.conf.local";
 	include "/etc/bind/named.conf.default-zones";
 
-	zone "geodns.oftc.net" {
+	zone "geo.oftc.net" {
 		type master;
-		file "db.eu.geodns.oftc.net";
+		file "db.eu.geo.oftc.net";
 		auto-dnssec maintain;
 		inline-signing yes;
 		notify explicit;
@@ -49,9 +49,9 @@ view "NA" {
 	include "/etc/bind/named.conf.local";
 	include "/etc/bind/named.conf.default-zones";
 
-	zone "geodns.oftc.net" {
+	zone "geo.oftc.net" {
 		type master;
-		file "db.na.geodns.oftc.net";
+		file "db.na.geo.oftc.net";
 		auto-dnssec maintain;
 		inline-signing yes;
 		notify explicit;
@@ -79,9 +79,9 @@ view "default" {
 	include "/etc/bind/named.conf.local";
 	include "/etc/bind/named.conf.default-zones";
 
-	zone "geodns.oftc.net" {
+	zone "geo.oftc.net" {
 		type master;
-		file "db.default.geodns.oftc.net";
+		file "db.default.geo.oftc.net";
 		auto-dnssec maintain;
 		inline-signing yes;
 		notify explicit;
