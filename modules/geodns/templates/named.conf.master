@@ -13,7 +13,7 @@ view "EU" {
 		EU;
 	};
 
-	include "/etc/bind/named.conf.local";
+	include "/etc/bind/named.conf.local-eu";
 	include "/etc/bind/named.conf.default-zones";
 
 	zone "geo.oftc.net" {
@@ -46,7 +46,7 @@ view "NA" {
 		AN;
 	};
 
-	include "/etc/bind/named.conf.local";
+	include "/etc/bind/named.conf.local-na";
 	include "/etc/bind/named.conf.default-zones";
 
 	zone "geo.oftc.net" {
@@ -76,7 +76,7 @@ view "default" {
 		any;
 	};
 
-	include "/etc/bind/named.conf.local";
+	include "/etc/bind/named.conf.local-default";
 	include "/etc/bind/named.conf.default-zones";
 
 	zone "geo.oftc.net" {
