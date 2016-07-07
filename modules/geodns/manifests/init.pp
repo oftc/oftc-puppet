@@ -1,4 +1,4 @@
-class geodns {
+class geodns { # DNS master server
   include ::geodns::common
 
   $dns_slaves = hiera('dns_slaves')

@@ -5,6 +5,15 @@ class geodns::common {
     'geoip-database-contrib',
   ])
 
+  $bind_listen_v4 = hiera('bind_listen_v4')
+  $bind_listen_v6 = hiera('bind_listen_v6')
+  file { '/etc/bind/named.conf.options':
+    mode => '644',
+    content => template('geodns/named.conf.options'),
+    require => Package['bind9'],
+    notify => Service['bind9'],
+  }
+
   $geodns_keys = hiera('geodns_keys')
   file { '/etc/bind/geodns.keys':
     mode => '440', owner => bind, group => bind,
