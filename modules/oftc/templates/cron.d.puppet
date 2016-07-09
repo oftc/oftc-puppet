@@ -1,4 +1,4 @@
 # File managed by Puppet
-# run puppet after reboot and every 30min (the offset depends on the hostname)
+# run puppet after reboot and every 60min (the offset depends on the hostname)
 @reboot  root  puppet agent --onetime --no-daemonize --logdest syslog
-<%= @hash %>-59/30 * * * *  root  puppet agent --onetime --no-daemonize --logdest syslog
+<%= @hash %> * * * *  root  puppet agent --onetime --no-daemonize --logdest syslog
