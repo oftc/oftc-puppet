@@ -7,7 +7,7 @@ class oftc::git {
   }
 
   exec { 'oftc-tools':
-    command => '/usr/bin/git clone git://git.oftc.net/oftc-tools.git /usr/local/oftc-tools',
+    command => '/usr/bin/git clone https://github.com/oftc/oftc-tools.git /usr/local/oftc-tools',
     refreshonly => true,
     require => Package['git'],
   }
