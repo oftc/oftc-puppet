@@ -21,7 +21,6 @@ class oftc::base {
     'sudo',
     'sysstat',
     'tree',
-    'ulogd',
     'vim',
     'zsh',
   ])
