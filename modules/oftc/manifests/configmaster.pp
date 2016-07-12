@@ -12,7 +12,9 @@ class oftc::configmaster {
     content => template('oftc/hosts'),
   }
 
+  # firewall rules
   include oftc::domain
+  include oftc::postgresql
 
   # accept mail for db.oftc.net
   ferm::port { 'smtp':
