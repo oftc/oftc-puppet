@@ -43,6 +43,14 @@ class oftc::irc {
       }
     }
   }
+  if ($oftc_user == 'true') {
+    $oftckey = hiera('oftckey')
+    ssh_authorized_key { 'OFTC Infrastructure 2006-04-25 - support@oftc.net':
+      user => 'oftc',
+      type => 'ssh-rsa',
+      key => $oftckey,
+    }
+  }
 
   # ansible facts
   file { '/etc/ansible':
