@@ -5,6 +5,7 @@ class oftc::base {
     'cron',
     'deborphan',
     'dialog', # for deborphan's orphaner
+    'dnsutils', # for nslookup/check_dns
     'iptables',
     'less',
     'locales-all',
