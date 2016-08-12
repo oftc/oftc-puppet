@@ -1,0 +1,13 @@
+[Unit]
+Description=node-webws
+
+[Service]
+WorkingDirectory=/home/oftc/webirc/node-ircws
+ExecStart=/usr/bin/nodejs index.js
+ExecReload=/bin/kill -HUP $MAINPID
+#Restart=on-failure
+StandardOutput=journal+console
+StandardError=journal+console
+
+[Install]
+WantedBy=default.target
