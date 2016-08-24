@@ -54,7 +54,7 @@ class userdir-ldap {
 
   file { '/etc/sudoers.d/oftc-admin':
     mode => 0440, owner => root, group => root,
-    content => "%oftc-admin ALL=(ALL) ALL\n",
+    content => "%oftc-admin ALL=(ALL) NOPASSWD: ALL\n",
     require => Package['sudo'],
   }
 }
