@@ -2,6 +2,7 @@ class oftc::base {
   ensure_packages ([
     'at',
     'binutils', # for strings in the running kernel check
+    'conntrack', # for munin/check_conntrack
     'cron',
     'deborphan',
     'dialog', # for deborphan's orphaner
