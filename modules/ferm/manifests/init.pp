@@ -27,9 +27,6 @@ class ferm {
   ferm::port { 'infrastructure':
     port => 'smtp munin nrpe',
   }
-  ferm::port { 'ntp':
-    proto => 'udp',
-  }
   ferm::port { 'ssh':
     target => 'jump STAFF',
   }
