@@ -4,7 +4,6 @@ class ansible {
   $oftchosts = hiera('oftchosts')
   $irchosts = hiera('irchosts')
   $ircservers = hiera('ircservers')
-  $oftcdnshosts = hiera('oftcdnshosts')
   $vservers = hiera('vservers')
 
   file { '/etc/ansible/hosts':

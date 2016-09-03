@@ -7,11 +7,6 @@
 <%= irchost %>.oftc.net
 <% end -%>
 
-[oftcdns]
-<% @oftcdnshosts.each do |oftcdnshost| -%>
-<%= oftcdnshost %>.oftc.net
-<% end -%>
-
 [vservers]
 <% @vservers.each do |vserver| -%>
 <%= vserver %>.oftc.net
