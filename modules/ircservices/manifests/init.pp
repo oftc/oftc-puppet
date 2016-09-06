@@ -1,10 +1,14 @@
 class ircservices {
   ensure_packages ([
     'build-essential',
+    'pkg-config',
     'zlib1g-dev',
     'libevent-dev',
+    'autoconf', 'automake', 'libtool', 'libltdl-dev',
     'libpq-dev', 'postgresql-server-dev-all',
     'libssl-dev',
+    'ruby', 'ruby-dev',
+    'flex', 'bison',
   ])
 
   # init/oftc_user are custom facts from facts.d/oftc
