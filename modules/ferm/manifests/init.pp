@@ -10,6 +10,8 @@ class ferm {
   $admin_ip6 = hiera_array('admin_ip6')
   $staff_ip4 = hiera_array('staff_ip4')
   $staff_ip6 = hiera_array('staff_ip6')
+  $badguys_ip4 = hiera_array('badguys_ip4')
+  $badguys_ip6 = hiera_array('badguys_ip6')
 
   concat { '/etc/ferm/ferm.conf':
     owner => root, group => root, mode => '0644',
