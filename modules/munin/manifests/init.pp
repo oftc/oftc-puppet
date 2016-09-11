@@ -26,6 +26,6 @@ class munin {
     '/etc/munin/plugins/nfsd',
     '/etc/munin/plugins/nfsd4',
   ]:
-    state => absent,
+    ensure => absent,
   }
 }
