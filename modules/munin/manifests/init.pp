@@ -18,4 +18,14 @@ class munin {
     }
   }
   ircplugin { $ircservers: }
+
+  # unwanted plugins
+  file { [
+    '/etc/munin/plugins/nfs_client',
+    '/etc/munin/plugins/nfs4_client',
+    '/etc/munin/plugins/nfsd',
+    '/etc/munin/plugins/nfsd4',
+  ]:
+    state => absent,
+  }
 }
