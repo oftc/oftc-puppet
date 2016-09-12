@@ -9,17 +9,23 @@ var irccertPath = path.join('/home/oftc/oftc', 'hybrid', 'etc', 'here-certificat
 var irccert = fs.readFileSync(irccertPath);
 
 module.exports = {
+  loggingConfig: {
+    // any options you would pass to createLogger
+    // https://github.com/trentm/node-bunyan
+    level: 'info',
+    //level: 'trace',
+  },
   listeners: [
 /*
     {
-      host: '0.0.0.0',
+      host: '::',
       type: 'plain',
       port: 26667,
       enabled: true,
     },
 */
     {
-      host: '0.0.0.0',
+      host: '::',
       type: 'tls',
       port: 16698,
       key: key,
@@ -27,7 +33,7 @@ module.exports = {
       enabled: true,
     },
     {
-      host: '0.0.0.0',
+      host: '::',
       type: 'socketio',
       port: 8443,
       key: key,
