@@ -1,0 +1,75 @@
+#!/usr/bin/perl
+
+# Copyright (C) Christoph Berg <myon@oftc.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+use strict;
+use warnings;
+
+if (@ARGV and $ARGV[0] eq 'config') {
+	print <<EOF;
+graph_title webirc connections
+graph_vlabel connections
+graph_category OFTC
+backend.label Backend/6697
+frontend4.label Frontend IPv4/8443
+frontend6.label Frontend IPv6/8443
+EOF
+	exit 0;
+}
+
+# wheezy:
+# State      Recv-Q Send-Q          Local Address:Port            Peer Address:Port
+# jessie:
+# Netid  State      Recv-Q Send-Q       Local Address:Port         Peer Address:Port
+
+open SS, "ss -n |";
+$_ = <SS>;
+my @headers = split /\s+/;
+my ($state_col) = grep { lc($headers[$_]) eq 'state' } 0..$#headers;
+die "State not found in ss header line" unless (defined $state_col);
+my ($local_col) = grep { lc($headers[$_]) eq 'local' } 0..$#headers;
+die "Local not found in ss header line" unless (defined $local_col);
+
+my ($backend, $frontend4, $frontend6) = (0, 0, 0);
+
+while (<SS>) {
+	my @fields = split /\s+/;
+	my ($state, $local) = @fields[$state_col, $local_col];
+	next unless ($state eq 'ESTAB');
+	$local =~ /(.+):(.+)/ or next;
+	my ($ip, $port) = ($1, $2);
+	$ip =~ s/^::ffff://; # strip v4-in-6 prefix
+
+	if ($port == 8443) {
+		if ($ip =~ /:/) {
+			$frontend6++;
+		} else {
+			$frontend4++;
+		}
+	} elsif ($port == 6697 and $ip eq '127.0.0.1') {
+		$backend++;
+	}
+}
+
+print "backend.value $backend\n";
+print "frontend4.value $frontend4\n";
+print "frontend6.value $frontend6\n";

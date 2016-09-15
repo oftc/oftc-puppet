@@ -68,4 +68,9 @@ class webirc (
     require => Exec['node-ircws.git'],
   }
 
+  # munin monitoring
+  munin::plugin { 'webirc':
+    content => template('webirc/webirc.munin'),
+  }
+
 }
