@@ -29,9 +29,13 @@ if (@ARGV and $ARGV[0] eq 'config') {
 graph_title webirc connections
 graph_vlabel connections
 graph_category OFTC
-backend.label Backend/6697
+graph_order frontend4 frontend6
 frontend4.label Frontend IPv4/8443
+frontend4.draw AREA
 frontend6.label Frontend IPv6/8443
+frontend6.draw STACK
+backend.label Backend/6697
+backend.draw LINE1
 EOF
 	exit 0;
 }
