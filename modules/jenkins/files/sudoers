@@ -1,3 +1,4 @@
 jenkins ALL=(oftc) NOPASSWD: ALL
 jenkins ALL=(ircservices) NOPASSWD: ALL
 jenkins ALL=(webirc) NOPASSWD: ALL
+jenkins ALL=(www) NOPASSWD: ALL
