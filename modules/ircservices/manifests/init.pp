@@ -44,5 +44,8 @@ class ircservices {
   #  target => '../ircservices.service',
   #}
 
+  # /usr/lib/ruby/2.1.0/openssl/buffering.rb must not contain "coding: binary". wtf.
+  # RUBY ERROR: ArgumentError: unknown encoding name: binary
+
   include oftc::postgresql
 }
