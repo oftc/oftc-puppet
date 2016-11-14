@@ -1,4 +1,6 @@
 jenkins ALL=(oftc) NOPASSWD: ALL
 jenkins ALL=(ircservices) NOPASSWD: ALL
+jenkins ALL=(servicesweb) NOPASSWD: ALL
+jenkins ALL=(root) NOPASSWD: /bin/systemctl restart servicesweb
 jenkins ALL=(webirc) NOPASSWD: ALL
 jenkins ALL=(www) NOPASSWD: ALL

@@ -59,4 +59,10 @@ class oftc::base {
   file { '/etc/mailname':
     mode => 0644, owner => root, group => root,
   }
+
+  # utility exec triggered from elsewhere
+  exec { 'systemctl daemon-reload':
+    command => '/bin/systemctl daemon-reload',
+    refreshonly => true,
+  }
 }

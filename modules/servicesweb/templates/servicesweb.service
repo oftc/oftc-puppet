@@ -1,8 +1,10 @@
 [Unit]
-Description=node-ircws
+Description=oftc-servicesweb
 
 [Service]
-WorkingDirectory=/home/oftc/webirc/node-ircws
+User=servicesweb
+Group=servicesweb
+WorkingDirectory=/home/oftc/servicesweb/oftc-servicesweb/server
 ExecStart=/usr/bin/nodejs index.js
 ExecReload=/bin/kill -HUP $MAINPID
 #Restart=on-failure
