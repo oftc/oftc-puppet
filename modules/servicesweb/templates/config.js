@@ -12,4 +12,6 @@ module.exports = {
         idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
     },
     tokenSecret: '<%= @servicesweb_tokensecret %>',
+    recaptcha_sitekey: '<%= @servicesweb_recaptcha_sitekey %>',
+    recaptcha_secretkey: '<%= @servicesweb_recaptcha_secretkey %>',
 }

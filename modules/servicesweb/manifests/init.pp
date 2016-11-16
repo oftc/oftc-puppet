@@ -2,6 +2,8 @@ class servicesweb (
   $host,
   $servicesweb_pass,
   $servicesweb_tokensecret,
+  $servicesweb_recaptcha_sitekey,
+  $servicesweb_recaptcha_secretkey,
 ) {
 
   ensure_packages([
