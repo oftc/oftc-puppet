@@ -2,7 +2,7 @@ class oftc::configmaster {
   include ansible
   include munin
   include smokeping
-  include userdir-ldap::master
+  include userdir_ldap::master
   include ::geodns
 
   $oftchosts = hiera('oftchosts')

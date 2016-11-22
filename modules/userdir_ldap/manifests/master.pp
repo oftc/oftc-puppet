@@ -1,4 +1,4 @@
-class userdir-ldap::master {
+class userdir_ldap::master {
   ensure_packages ([
     'python-dsa-mq',
     'python-kombu',
@@ -8,7 +8,7 @@ class userdir-ldap::master {
   $hash = fqdn_rand(15)
   file { '/etc/cron.d/ud-generate':
     mode => 0644, owner => root, group => root,
-    content => template('userdir-ldap/cron.d.ud-generate'),
+    content => template('userdir_ldap/cron.d.ud-generate'),
   }
 
   ferm::port { 'ldap':

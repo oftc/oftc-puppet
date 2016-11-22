@@ -10,6 +10,6 @@ class oftc {
   include oftc::puppet
   include oftc::recvconf
   include oftc::ssh
-  include syslog-ng
-  include userdir-ldap
+  include syslog_ng
+  include userdir_ldap
 }

@@ -1,7 +1,7 @@
-class userdir-ldap {
+class userdir_ldap {
   apt::key { 'db.debian.org':
     key => 'D984518A0DCB4EEC519573DF661EBB0E456D79AB',
-    key_content => template('userdir-ldap/db.debian.org.asc'),
+    key_content => template('userdir_ldap/db.debian.org.asc'),
   }
 
   apt::source { 'db.debian.org':
@@ -20,7 +20,7 @@ class userdir-ldap {
   $hash = fqdn_rand(14) + 1 # on master: 1 min after ud-generate
   file { '/etc/cron.d/ud-replicate':
     mode => 0644, owner => root, group => root,
-    content => template('userdir-ldap/cron.d.ud-replicate'),
+    content => template('userdir_ldap/cron.d.ud-replicate'),
   }
 
   file_line { 'nss passwd':
@@ -43,7 +43,7 @@ class userdir-ldap {
 
   # https://help.ubuntu.com/community/LDAPClientAuthentication#Automatically_create_home_folders
   file { '/usr/share/pam-configs/mkhomedir':
-    content => template('userdir-ldap/mkhomedir'),
+    content => template('userdir_ldap/mkhomedir'),
     notify => Exec['pam-auth-update'],
   }
 
