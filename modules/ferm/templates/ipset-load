@@ -1,10 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 # vim:sw=2:
 
 # Syntax: ipset-load <set> <type and family> <file>
 # Sample: ipset-load dronebl4 "hash:net family inet" dronebl4.list
 
 set -eu
+
+if [ "$1" = "-f" ]; then
+  # remove FILE on error to re-trigger puppet
+  trap 'rm -f $FILE' ERR # bashism
+  shift
+fi
 
 SET="$1"
 SET_NEW="${SET}_new"
