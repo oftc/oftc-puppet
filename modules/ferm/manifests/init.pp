@@ -1,5 +1,5 @@
 class ferm {
-  ensure_packages(['ferm'])
+  ensure_packages(['ferm', 'ipset'])
 
   $forward_policy = hiera('forward_policy', 'DROP')
   $ircports_public = hiera('ircports_public')
@@ -68,4 +68,8 @@ class ferm {
     notify => Service['ferm'],
   }
 
+  file { '/usr/local/sbin/ipset-load':
+    owner => root, group => root, mode => '0755',
+    content => template('ferm/ipset-load'),
+  }
 }

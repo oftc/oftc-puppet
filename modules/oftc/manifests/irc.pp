@@ -79,4 +79,6 @@ class oftc::irc {
     port => hiera('ircports_private'),
     target => 'jump STAFF',
   }
+
+  include ferm::dronebl
 }

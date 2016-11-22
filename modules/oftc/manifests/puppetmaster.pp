@@ -9,4 +9,6 @@ class oftc::puppetmaster {
   ferm::port { 'puppetmaster':
     port => '8140',
   }
+
+  include ferm::droneblmirror
 }

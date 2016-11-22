@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# rsync raw dronebl buildzone files and convert them to plain ip/net lists
+
+set -eu
+
+DIR="/var/cache/dronebl"
+DST="/etc/puppet/files"
+
+mkdir -p $DIR $DST
+
+rsync -r --password-file="/etc/oftc/dronebl.rsyncpw" \
+  rsync://oftc@rsync.dronebl.org/dronebl/ $DIR/dronebl
+
+cd $DIR
+
+filter () {
+  local src="$1"
+  local dst="$2"
+  if ! test -f $dst.md5sum || ! md5sum -c $dst.md5sum >/dev/null; then
+    grep -o '^[0-9a-f][^ 	]*' $src | sort -u > $DST/$dst.tmp
+    mv $DST/$dst.tmp $DST/$dst
+    md5sum $src > $dst.md5sum
+  fi
+}
+
+filter dronebl/buildzone dronebl4
+filter dronebl/buildzone6 dronebl6

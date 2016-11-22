@@ -1,0 +1,39 @@
+#!/bin/sh
+# vim:sw=2:
+
+# Syntax: ipset-load <set> <type and family> <file>
+# Sample: ipset-load dronebl4 "hash:net family inet" dronebl4.list
+
+set -eu
+
+SET="$1"
+SET_NEW="${SET}_new"
+TYPE="$2"
+FILE="$3"
+
+# create set if not there yet
+if ! ipset list -terse "$SET" >/dev/null 2>&1; then
+  ipset create "$SET" $TYPE
+fi
+
+# nuke _NEW set if leftover from last run
+if ipset list -terse "$SET_NEW" >/dev/null 2>&1; then
+  ipset destroy "$SET_NEW"
+fi
+
+# bail out if file not found (but do it after creating an empty placeholder set above)
+if ! test -f "$FILE"; then
+  echo "$0: $FILE not found" >&2
+  exit 1
+fi
+
+# create _NEW set
+WC=$(wc -l "$FILE")
+LINES=$(( ${WC% *} + 10 ))
+
+trap "ipset destroy $SET_NEW" 0 2 3 15
+
+( echo "create $SET_NEW $TYPE maxelem $LINES"
+  sed -e "s/^/add $SET_NEW /" "$FILE"
+  echo "swap $SET_NEW $SET"
+) | ipset restore
