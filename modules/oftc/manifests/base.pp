@@ -7,6 +7,8 @@ class oftc::base {
     'deborphan',
     'dialog', # for deborphan's orphaner
     'dnsutils', # for nslookup/check_dns
+    'etckeeper',
+    'git',
     'iptables',
     'less',
     'locales-all',
