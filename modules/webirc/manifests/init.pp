@@ -35,11 +35,11 @@ class webirc (
     #'/home/oftc/webirc/.config/systemd/user/default.target.wants/',
   ]:
     ensure => directory,
-    owner => webirc, group => webirc, mode => 755,
+    owner => webirc, group => webirc, mode => '755',
   }
 
   file { '/home/oftc/webirc/.config/systemd/user/webirc.service':
-    owner => webirc, group => webirc, mode => 644,
+    owner => webirc, group => webirc, mode => '644',
     content => template("webirc/webirc.service"),
     require => User['webirc'],
   }

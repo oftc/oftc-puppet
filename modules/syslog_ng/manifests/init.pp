@@ -5,7 +5,7 @@ class syslog_ng {
 
   if !($::hostname == hiera('loghost')) {
     file { '/etc/syslog-ng/conf.d/oftc.conf':
-      mode => 0644, owner => root, group => root,
+      mode => '0644', owner => root, group => root,
       source => "puppet:///modules/syslog_ng/oftc.conf",
       require => Package['syslog-ng'],
       notify => Service['syslog-ng'],

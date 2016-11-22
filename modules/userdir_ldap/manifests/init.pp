@@ -19,7 +19,7 @@ class userdir_ldap {
   # run every 15min from cron instead of daemonizing
   $hash = fqdn_rand(14) + 1 # on master: 1 min after ud-generate
   file { '/etc/cron.d/ud-replicate':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     content => template('userdir_ldap/cron.d.ud-replicate'),
   }
 
@@ -53,7 +53,7 @@ class userdir_ldap {
   }
 
   file { '/etc/sudoers.d/oftc-admin':
-    mode => 0440, owner => root, group => root,
+    mode => '0440', owner => root, group => root,
     content => "%oftc-admin ALL=(ALL) NOPASSWD: ALL\n",
     require => Package['sudo'],
   }

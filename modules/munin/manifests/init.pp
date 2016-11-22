@@ -6,7 +6,7 @@ class munin {
   $oftchosts = hiera('oftchosts')
   $ircservers = hiera('ircservers')
   file { '/etc/munin/munin.conf':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     content => template('munin/munin.conf'),
     require => Package['munin'],
   }

@@ -13,7 +13,7 @@ class oftc::irc {
   ])
 
   file { '/etc/security/limits.d/oftc_limits.conf':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     source => "puppet:///modules/oftc/oftc_limits.conf",
   }
 
@@ -63,7 +63,7 @@ class oftc::irc {
   }
 
   file { '/etc/ansible/facts.d/oftc.fact':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     content => template('oftc/oftc.fact'),
     require => File['/etc/ansible/facts.d'],
   }

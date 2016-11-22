@@ -12,7 +12,7 @@ class ntp {
 
   $configserverips = hiera("configserverips")
   file { '/etc/ntp.oftc.conf':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     content => template('ntp/ntp.oftc.conf'),
     require => Package['ntp'],
     notify => Service['ntp'],

@@ -8,7 +8,7 @@ class oftc::configmaster {
   $oftchosts = hiera('oftchosts')
 
   file { '/etc/oftc/acme/.domains.oftc.txt':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     content => template('oftc/hosts'),
   }
 

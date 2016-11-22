@@ -28,12 +28,12 @@ class oftc::base {
   ])
 
   file { '/etc/bash.bashrc':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     source => "puppet:///modules/oftc/bash.bashrc",
   }
 
   file { '/etc/cron.hourly/apt':
-    mode => 0755, owner => root, group => root,
+    mode => '0755', owner => root, group => root,
     source => "puppet:///modules/oftc/cron-apt",
     require => Package['cron'],
   }
@@ -57,7 +57,7 @@ class oftc::base {
   }
 
   file { '/etc/mailname':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
   }
 
   # utility exec triggered from elsewhere

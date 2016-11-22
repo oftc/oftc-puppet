@@ -7,7 +7,7 @@ class ansible {
   $vservers = hiera('vservers')
 
   file { '/etc/ansible/hosts':
-    mode => 0644, owner => root, group => root,
+    mode => '0644', owner => root, group => root,
     content => template('ansible/hosts'),
     require => Package['ansible'],
   }
