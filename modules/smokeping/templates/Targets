@@ -23,7 +23,7 @@ host = <%= host['name'] %>.oftc.net
 <% @oftcaccounts.each do |host| -%>
 ++ <%= host['hybridname'] %>
 menu = <%= host['name'] %>
-host = <%= host['ip4'] %>
+host = <%= host['ip4'][0] %>
 
 <% end %>
 
@@ -33,7 +33,7 @@ menu = IPv6
 title = OFTC Hosts on IPv6
 
 <% @oftchosts.each do |host| -%>
-<% if host['ip6'] -%>
+<% if host['ip6'][0] -%>
 ++ <%= host['name'] %>
 host = <%= host['name'] %>.oftc.net
 
@@ -41,10 +41,10 @@ host = <%= host['name'] %>.oftc.net
 <% end %>
 
 <% @oftcaccounts.each do |host| -%>
-<% if host['ip6'] -%>
+<% if host['ip6'][0] -%>
 ++ <%= host['hybridname'] %>
 menu = <%= host['name'] %>
-host = <%= host['ip6'] %>
+host = <%= host['ip6'][0] %>
 
 <%- end -%>
 <% end %>

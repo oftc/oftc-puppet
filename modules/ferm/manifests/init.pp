@@ -90,8 +90,8 @@ class ferm {
   ferm::ipset { 'badguys6': family => 'inet6', list => $badguys_ip6, }
 
   $oftc_all = concat($oftchosts, $oftcaccounts)
-  $oftc4 = $oftc_all.map |$host| { split($host['ip4'], ' ') } # split ip lists at spaces
-  $oftc6 = grep($oftc_all.map |$host| { $host['ip6'] }, ':') # remove "undef"
+  $oftc4 = $oftc_all.map |$host| { $host['ip4'] }
+  $oftc6 = $oftc_all.map |$host| { $host['ip6'] }
   ferm::ipset { 'oftc4': family => 'inet',  list => $oftc4, }
   ferm::ipset { 'oftc6': family => 'inet6', list => $oftc6, }
 
