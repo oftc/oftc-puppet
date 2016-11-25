@@ -1,5 +1,7 @@
 class servicesweb (
   $host,
+  $pghost = '',
+  $pgport = 5432,
   $servicesweb_pass,
   $servicesweb_tokensecret,
   $servicesweb_recaptcha_sitekey,
