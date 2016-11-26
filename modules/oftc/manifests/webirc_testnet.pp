@@ -24,9 +24,10 @@ class oftc::webirc_testnet {
     servicesweb_recaptcha_secretkey => hiera('servicesweb_recaptcha_secretkey'),
   }
 
+  # also used for jenkins
   ferm::port { 'www':
     port => 'http https',
-    target => 'jump STAFF',
+    target => 'ACCEPT',
   }
 
 }
