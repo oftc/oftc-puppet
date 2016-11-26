@@ -1,0 +1,6 @@
+# dronebl
+@hook pre "/usr/local/sbin/ipset-load dronebl4 'hash:net family inet'  /var/lib/dronebl/dronebl4";
+@hook pre "/usr/local/sbin/ipset-load dronebl6 'hash:net family inet6' /var/lib/dronebl/dronebl6";
+domain ip  chain INPUT proto tcp mod set match-set dronebl4 src REJECT;
+domain ip6 chain INPUT proto tcp mod set match-set dronebl6 src REJECT;
+# /dronebl

@@ -35,4 +35,11 @@ class ferm::dronebl {
     require => File['/usr/local/sbin/ipset-load'],
   }
 
+  # block access
+  concat::fragment { "ferm_dronebl":
+    target  => '/etc/ferm/ferm.conf',
+    order   => 40,
+    content => template('ferm/dronebl.ferm'),
+  }
+
 }

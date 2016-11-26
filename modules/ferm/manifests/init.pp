@@ -26,11 +26,13 @@ class ferm {
     content => template('ferm/ferm.conf'),
   }
 
-  ferm::port { 'infrastructure':
-    port => 'smtp munin nrpe',
-  }
   ferm::port { 'ssh':
+    sequence => 22,
     target => 'jump STAFF',
+  }
+  ferm::port { 'infrastructure':
+    sequence => 25,
+    port => 'smtp munin nrpe',
   }
 
   # REJECT everything else (instead of applying the DROP default)

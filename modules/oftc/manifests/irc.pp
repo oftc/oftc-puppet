@@ -69,16 +69,18 @@ class oftc::irc {
   }
 
   # firewall
-  ferm::port { 'irc':
-    sequence => 50,
-    port => hiera('ircports_public'),
-    target => 'ACCEPT',
-  }
-  ferm::port { 'testnet':
-    sequence => 51,
+  ferm::port { 'irc_private':
+    sequence => 30,
     port => hiera('ircports_private'),
     target => 'jump STAFF',
   }
 
   include ferm::dronebl
+
+  ferm::port { 'irc':
+    sequence => 50,
+    port => hiera('ircports_public'),
+    target => 'ACCEPT',
+  }
+
 }
