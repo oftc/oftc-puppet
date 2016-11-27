@@ -3,6 +3,7 @@ define munin::plugin (
   $plugin = $title,
   $directory = '/usr/share/munin/plugins',
   $content = undef,
+  $conf = undef,
 ) {
 
   if ("$content" != "") {
@@ -18,6 +19,15 @@ define munin::plugin (
     target => "$directory/$plugin",
     require => Package['munin-node'],
     notify => Service['munin-node'],
+  }
+
+  if ("$conf" != "") {
+    file { "/etc/munin/plugin-conf.d/${plugin}":
+      mode => "0600", owner => root, group => root,
+      content => "[${plugin}]\n${conf}\n",
+      require => Package['munin-node'],
+      notify => Service['munin-node'],
+    }
   }
 
 }

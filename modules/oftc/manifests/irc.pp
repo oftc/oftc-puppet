@@ -31,6 +31,11 @@ class oftc::irc {
     notify => Service['munin-node'],
   }
 
+  munin::plugin { 'ircsyn':
+    content => template('oftc/ircsyn.munin'),
+    conf => "user root",
+  }
+
   # init/oftc_user are custom facts from facts.d/oftc
   if ($init == 'systemd') {
     ensure_packages (['libpam-systemd'])

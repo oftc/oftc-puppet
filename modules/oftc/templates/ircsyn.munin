@@ -1,0 +1,58 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+# iptables -vnxL
+#  628340 37614764 REJECT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            match-set dronebl4 src reject-with icmp-port-unreachable
+# 1412164 84727093 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            multiport dports 6667,6668,6669,6670,6697,7000,9999
+#    3831   351901 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+
+if (@ARGV and $ARGV[0] eq 'config') {
+  print <<EOF;
+graph_title firewall matches
+graph_vlabel matches/s
+graph_category OFTC
+graph_args --lower-limit 0
+irc4.label IRC v4 SYN
+irc4.info ipv4 connections to ports 6667,6668,...
+irc4.type COUNTER
+irc6.label IRC v6 SYN
+irc6.info ipv6 connections to ports 6667,6668,...
+irc6.type COUNTER
+dronebl4.label dronebl v4 rejects
+dronebl4.info ipv4 packets rejected by the dronebl4 ipset
+dronebl4.type COUNTER
+dronebl6.label dronebl v6 rejects
+dronebl6.info ipv6 packets rejected by the dronebl6 ipset
+dronebl6.type COUNTER
+reject4.label other v4 rejects
+reject4.info ipv4 packets rejected by the generic reject rule
+reject4.type COUNTER
+reject6.label other v6 rejects
+reject6.info ipv6 packets rejected by the generic reject rule
+reject6.type COUNTER
+EOF
+  exit 0;
+}
+
+
+for my $family (qw(4 6)) {
+  my $iptables = $family == 4 ? 'iptables' : 'ip6tables';
+  open F, "$iptables -vnxL INPUT |";
+  while (<F>) {
+    if (/match-set dronebl/) {
+      /(\d+)/;
+      print "dronebl$family.value $1\n";
+    } elsif (/dports 6667/) {
+      /(\d+)/;
+      print "irc$family.value $1\n";
+    } elsif (/reject-with icmp/) {
+      /(\d+)/;
+      print "reject$family.value $1\n";
+    }
+  }
+  close F;
+}
+
+# vim:sw=2:
