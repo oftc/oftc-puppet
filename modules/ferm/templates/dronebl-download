@@ -17,7 +17,7 @@ cd $DIR
 filter () {
   local src="$1"
   local dst="$2"
-  if ! test -f $dst.md5sum || ! md5sum -c $dst.md5sum >/dev/null; then
+  if ! test -f $dst.md5sum || ! md5sum --status -c $dst.md5sum; then
     grep -o '^[0-9a-f][^ 	]*' $src | sort -u > $DST/$dst.tmp
     mv $DST/$dst.tmp $DST/$dst
     md5sum $src > $dst.md5sum
