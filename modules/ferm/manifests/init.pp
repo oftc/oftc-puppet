@@ -13,6 +13,8 @@ class ferm {
   $badguys_ip4 = hiera_array('badguys_ip4')
   $badguys_ip6 = hiera_array('badguys_ip6')
 
+  $ferm_local_rules = hiera('ferm_local_rules', undef)
+
   concat { '/etc/ferm/ferm.conf':
     owner => root, group => root, mode => '0644',
     ensure => present,
