@@ -3,6 +3,7 @@ class ircservices {
     'build-essential',
     'pkg-config',
     'zlib1g-dev',
+    'libbsd-dev',
     'libevent-dev',
     'autoconf', 'automake', 'libtool', 'libltdl-dev',
     'libpq-dev', 'postgresql-server-dev-all',
