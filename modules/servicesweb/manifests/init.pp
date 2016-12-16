@@ -17,6 +17,7 @@ class servicesweb (
     home => '/home/oftc/servicesweb',
     system => true,
     managehome => true,
+    shell => '/bin/bash',
   }
 
   exec { 'oftc-servicesweb.git':
