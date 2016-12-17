@@ -25,4 +25,19 @@ class postfix {
     content => "mech_list: LOGIN PLAIN\n",
     require => Package['postfix'],
   }
+
+  # etckeeper ignore
+  file { '/etc/postfix/.gitignore':
+    mode => '0644', owner => root, group => root,
+    content => "debian.db\n",
+    require => [ Package['postfix'], Package['etckeeper'] ],
+    notify => Exec['ignore-debian.db'],
+  }
+
+  exec { 'ignore-debian.db':
+    command => '/usr/bin/git rm --cached debian.db',
+    cwd => '/etc/postfix',
+    refreshonly => true,
+  }
+
 }
