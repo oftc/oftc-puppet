@@ -1,8 +1,13 @@
 class ferm::droneblmirror {
 
+  user { 'dronebl':
+    system => true,
+    home => '/var/cache/dronebl',
+  }
+
   $droneblrsync = hiera('droneblrsync')
   file { '/etc/oftc/dronebl.rsyncpw':
-    owner => root, group => root, mode => '0600',
+    owner => root, group => dronebl, mode => '0640',
     content => "$droneblrsync\n",
   }
 

@@ -9,7 +9,8 @@ DST="/etc/puppet/files"
 
 mkdir -p $DIR $DST
 
-rsync -r --password-file="/etc/oftc/dronebl.rsyncpw" \
+sudo -u dronebl \
+  rsync -rt --password-file="/etc/oftc/dronebl.rsyncpw" \
   rsync://oftc@rsync.dronebl.org/dronebl/ $DIR/dronebl
 
 cd $DIR
