@@ -78,6 +78,7 @@ module.exports = {
                 },
         },
         },
+        /*
         'tor-efnet': {
         zone: "tor.efnetrbl.org",
         defaultCloak: "tor-irc.dnsbl.oftc.net",
@@ -112,6 +113,7 @@ module.exports = {
                 }
         }
         },
+        */
         'dronebl': {
         zone: "dnsbl.dronebl.org",
         defaultScore: 1,
