@@ -7,7 +7,7 @@ Group=servicesweb
 WorkingDirectory=/home/oftc/servicesweb/oftc-servicesweb/server
 ExecStart=/usr/bin/nodejs index.js
 ExecReload=/bin/kill -HUP $MAINPID
-#Restart=on-failure
+Restart=on-failure
 StandardOutput=journal+console
 StandardError=journal+console
 
