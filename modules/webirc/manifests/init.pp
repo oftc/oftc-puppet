@@ -66,6 +66,13 @@ class webirc (
     require => Exec['node-ircws.git'],
   }
 
+  # sudo
+  file { '/etc/sudoers.d/webirc':
+    mode => '0400', owner => root, group => root,
+    content => template("webirc/sudoers.webirc"),
+    require => Package['sudo'],
+  }
+
   # munin monitoring
   munin::plugin { 'webirc':
     content => template('webirc/webirc.munin'),

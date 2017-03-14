@@ -1,0 +1,3 @@
+oftc ALL=(root) NOPASSWD: /bin/systemctl restart webirc
+oftc ALL=(root) NOPASSWD: /usr/sbin/service webirc *
+oftc ALL=(webirc) NOPASSWD: ALL
