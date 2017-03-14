@@ -21,27 +21,25 @@ class webirc (
     require => Package['ca-certificates'],
   }
 
-  exec { 'enable-linger-webirc':
-    command => '/bin/loginctl enable-linger webirc',
-    creates => '/var/lib/systemd/linger/webirc',
-    require => User['webirc'],
-  }
-
+  # clean up from when we used a user systemd instance
   file {[
-    '/home/oftc/webirc/',
     '/home/oftc/webirc/.config/',
-    '/home/oftc/webirc/.config/systemd/',
-    '/home/oftc/webirc/.config/systemd/user/',
-    #'/home/oftc/webirc/.config/systemd/user/default.target.wants/',
+    '/var/lib/systemd/linger/webirc',
   ]:
-    ensure => directory,
-    owner => webirc, group => webirc, mode => '755',
+    ensure => absent,
+    force => true,
+    notify => Exec['systemctl daemon-reload'],
   }
 
-  file { '/home/oftc/webirc/.config/systemd/user/webirc.service':
-    owner => webirc, group => webirc, mode => '644',
+  file { '/lib/systemd/system/webirc.service':
+    owner => root, group => root, mode => '644',
     content => template("webirc/webirc.service"),
-    require => User['webirc'],
+    notify => Exec['systemctl daemon-reload'],
+  }
+
+  service { 'webirc':
+    enable => true,
+    require => File['/lib/systemd/system/webirc.service'],
   }
 
   exec { 'node-ircws.git':
