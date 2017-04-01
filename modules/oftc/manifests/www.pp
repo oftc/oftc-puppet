@@ -15,9 +15,11 @@ class oftc::www {
     servicesweb_recaptcha_secretkey => hiera('servicesweb_recaptcha_secretkey'),
   }
 
+  if $::hostname != "photon.oftc.net" { # still a vserver
   ferm::port { 'www':
     port => 'http https',
     target => 'ACCEPT',
+  }
   }
 
 }
