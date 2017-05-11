@@ -31,8 +31,8 @@ view "EU" {
 			<%= master %>;
 			<%- end -%>
 		};
-		transfer-source <%= bind_listen_v4 %>;
-		transfer-source-v6 <%= bind_listen_v6 %>;
+		transfer-source <%= @bind_listen_v4 %>;
+		transfer-source-v6 <%= @bind_listen_v6 %>;
 		notify no;
 	};
 };
@@ -66,8 +66,8 @@ view "NA" {
 			<%= master %>;
 			<%- end -%>
 		};
-		transfer-source <%= bind_listen_v4 %>;
-		transfer-source-v6 <%= bind_listen_v6 %>;
+		transfer-source <%= @bind_listen_v4 %>;
+		transfer-source-v6 <%= @bind_listen_v6 %>;
 		notify no;
 	};
 };
@@ -98,8 +98,8 @@ view "default" {
 			<%= master %>;
 			<%- end -%>
 		};
-		transfer-source <%= bind_listen_v4 %>;
-		transfer-source-v6 <%= bind_listen_v6 %>;
+		transfer-source <%= @bind_listen_v4 %>;
+		transfer-source-v6 <%= @bind_listen_v6 %>;
 		notify no;
 	};
 };
