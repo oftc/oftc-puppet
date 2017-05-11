@@ -10,16 +10,15 @@ class munin::node {
   }
 
   $muninaccess = hiera_array("muninaccess")
-  define munin_node_allow {
-    file_line { "munin-node allow $name":
+  $muninaccess.each |String $host| {
+    file_line { "munin-node allow $host":
       path => '/etc/munin/munin-node.conf',
-      line => "allow $name",
+      line => "allow $host",
       after => '^allow \^::1',
       require => Package['munin-node'],
       notify => Service['munin-node'],
     }
   }
-  munin_node_allow { $muninaccess: }
 
   file_line { 'tls enabled':
     path => '/etc/munin/munin-node.conf',
