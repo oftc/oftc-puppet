@@ -12,19 +12,19 @@ options {
 
 	listen-on {
 		127.0.0.1;
-		<%= bind_listen_v4 %>;
+		<%= @bind_listen_v4 %>;
 	};
 	listen-on-v6 {
 		::1;
-		<%= bind_listen_v6 %>;
+		<%= @bind_listen_v6 %>;
 	};
 
 	allow-query { any; };
 	allow-recursion {
 		127.0.0.1;
 		::1;
-		<%= bind_listen_v4 %>;
-		<%= bind_listen_v6 %>;
+		<%= @bind_listen_v4 %>;
+		<%= @bind_listen_v6 %>;
 	};
 	allow-transfer { none; };
 	allow-update { none; };

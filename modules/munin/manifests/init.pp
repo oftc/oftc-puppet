@@ -11,11 +11,10 @@ class munin {
     require => Package['munin'],
   }
 
-  define ircplugin {
-    munin::plugin { "irc_$name.oftc.net":
+  $ircservers.each |String $host| {
+    munin::plugin { "irc_$host.oftc.net":
       directory => '/usr/local/oftc-tools/infrastructure/munin',
       plugin => 'irc_',
     }
   }
-  ircplugin { $ircservers: }
 }
