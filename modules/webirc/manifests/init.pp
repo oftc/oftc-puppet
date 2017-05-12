@@ -77,11 +77,4 @@ class webirc (
   munin::plugin { 'webirc':
     content => template('webirc/webirc.munin'),
   }
-
-  # hack: make sure webirc can read the hybrid certificate
-  # this should probably go elsewhere
-  file { '/home/oftc/oftc':
-    ensure => directory,
-    owner => oftc, group => oftc, mode => '2755',
-  }
 }

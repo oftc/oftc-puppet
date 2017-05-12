@@ -49,11 +49,18 @@ class oftc::irc {
     }
   }
   if ($oftc_user == 'true') {
+    # hack: make sure webirc can read the hybrid certificate
+    file { '/home/oftc/oftc':
+      ensure => directory,
+      owner => oftc, group => oftc, mode => '2755',
+    }
+
     $oftckey = hiera('oftckey')
     ssh_authorized_key { 'OFTC Infrastructure 2006-04-25 - support@oftc.net':
       user => 'oftc',
       type => 'ssh-rsa',
       key => $oftckey,
+      require => File['/home/oftc/oftc'],
     }
   }
 
