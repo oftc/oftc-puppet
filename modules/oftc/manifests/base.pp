@@ -29,9 +29,21 @@ class oftc::base {
     'zsh',
   ])
 
+  # revert to original file (we used to modify it)
+  # remaining diff to original is if ... PS1 ... fi
   file { '/etc/bash.bashrc':
     mode => '0644', owner => root, group => root,
     source => "puppet:///modules/oftc/bash.bashrc",
+  }
+
+  file { '/etc/profile.d/myon-profile.sh':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/oftc/myon-profile.sh",
+  }
+
+  file { '/etc/profile.d/oftc-profile.sh':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/oftc/oftc-profile.sh",
   }
 
   file { '/etc/cron.hourly/apt':
