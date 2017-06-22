@@ -7,7 +7,13 @@ class oftc::nrpe {
     'lsof', # nagios-check-libs
   ])
 
-  service { 'nagios-nrpe-server': }
+  if $::lsbdistcodename == 'stretch' {
+  file { '/etc/default/nagios-nrpe-server':
+    mode => '0644', owner => root, group => root,
+    content => "NRPE_OPTS=\"\"\n",
+    notify => Service['nagios-nrpe-server'],
+  }
+  }
 
   file { '/etc/nagios/nrpe.d/nrpe_oftc.cfg':
     ensure => link,
@@ -29,4 +35,15 @@ class oftc::nrpe {
     source => "puppet:///modules/oftc/sudoers.nrpe",
     require => Package['sudo'],
   }
+
+  user { 'nagios':
+    groups => 'ssl-cert',
+    require => [
+      Package['ca-certificates'],
+      Package['nagios-nrpe-server'],
+    ],
+    notify => Service['nagios-nrpe-server'],
+  }
+
+  service { 'nagios-nrpe-server': }
 }
