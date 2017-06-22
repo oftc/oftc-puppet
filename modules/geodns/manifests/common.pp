@@ -22,11 +22,13 @@ class geodns::common {
     notify => Service['bind9'],
   }
 
+  if $::lsbdistcodename == 'stretch' {
   file { '/etc/bind/continents.acl':
     mode => '644',
     content => template('geodns/continents.acl'),
     require => Package['bind9'],
     notify => Service['bind9'],
+  }
   }
 
   service { 'bind9': }

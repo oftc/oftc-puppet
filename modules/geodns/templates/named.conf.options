@@ -30,5 +30,7 @@ options {
 	allow-update { none; };
 
 	rate-limit { responses-per-second 20; };
+
+	geoip-directory "/var/lib/geoip-database-contrib";
 };
 
