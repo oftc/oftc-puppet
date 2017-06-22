@@ -7,7 +7,7 @@ class ircservices {
     'libevent-dev',
     'autoconf', 'automake', 'libtool', 'libltdl-dev',
     'libpq-dev', 'postgresql-server-dev-all',
-    'libssl-dev',
+    #'libssl-dev', # libssl(1.0)-dev is installed by oftc::irc anyway
     'ruby', 'ruby-dev',
     'flex', 'bison',
   ])
