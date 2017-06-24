@@ -1,6 +1,12 @@
 class oftc::cert {
   ensure_packages (['ca-certificates'])
 
+  file { "/etc/ssl/private":
+    owner => root, group => 'ssl-cert', mode => '0710',
+    ensure => directory,
+    require => Package['ca-certificates'],
+  }
+
   file { "/etc/ssl/certs/thishost-chained.pem":
     ensure => link,
     target => "$::fqdn-chained.pem",
