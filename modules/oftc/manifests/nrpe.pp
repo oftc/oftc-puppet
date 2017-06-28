@@ -7,12 +7,10 @@ class oftc::nrpe {
     'lsof', # nagios-check-libs
   ])
 
-  if $::lsbdistcodename == 'stretch' {
   file { '/etc/default/nagios-nrpe-server':
     mode => '0644', owner => root, group => root,
     content => "NRPE_OPTS=\"\"\n",
     notify => Service['nagios-nrpe-server'],
-  }
   }
 
   file { '/etc/nagios/nrpe.d/nrpe_oftc.cfg':
