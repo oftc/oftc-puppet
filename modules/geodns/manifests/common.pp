@@ -22,6 +22,13 @@ class geodns::common {
     notify => Service['bind9'],
   }
 
+  file { '/etc/bind/acl.conf':
+    mode => '644',
+    content => template('geodns/acl.conf'),
+    require => Package['bind9'],
+    notify => Service['bind9'],
+  }
+
   file { '/etc/bind/continents.acl':
     mode => '644',
     content => template('geodns/continents.acl'),
