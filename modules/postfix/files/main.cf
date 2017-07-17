@@ -1,9 +1,12 @@
+compatibility_level = 2
+
 biff = no
 append_dot_mydomain = no
 owner_request_special = no
 mydestination =
         $myhostname
         localhost.$mydomain
+        oftc.net
 
 alias_maps =
         hash:/etc/aliases
