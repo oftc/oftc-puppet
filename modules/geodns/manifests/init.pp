@@ -1,6 +1,7 @@
 class geodns { # DNS master server
   include ::geodns::common
 
+  $configserverips = hiera('configserverips')
   $dns_slaves = hiera('dns_slaves')
   file { '/etc/bind/named.conf':
     mode => '644',

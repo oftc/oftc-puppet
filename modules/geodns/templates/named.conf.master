@@ -9,8 +9,11 @@ view "EU" {
 		key eu.geo.oftc.net.;
 		! key na.geo.oftc.net.;
 		! key default.geo.oftc.net.;
-		! ns_oftc; // defer to default zone
-		! ns_spi; // defer to default zone
+		ns_oftc; // use this view for non-geo requests/transfers
+		ns_spi; // use this view for non-geo requests/transfers
+		<% @configserverips.each do |ip| %>
+		<%= ip %>; // use this view for non-geo requests/transfers
+		<%- end %>
 		AF;
 		AS;
 		EU;
@@ -43,8 +46,6 @@ view "NA" {
 		! key eu.geo.oftc.net.;
 		key na.geo.oftc.net.;
 		! key default.geo.oftc.net.;
-		! ns_oftc; // defer to default zone
-		! ns_spi; // defer to default zone
 		NA;
 		SA;
 		OC;
