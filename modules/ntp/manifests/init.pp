@@ -17,4 +17,9 @@ class ntp {
     require => Package['ntp'],
     notify => Service['ntp'],
   }
+
+  file { '/etc/localtime':
+    ensure => link,
+    target => '/usr/share/zoneinfo/Etc/UTC',
+  }
 }
