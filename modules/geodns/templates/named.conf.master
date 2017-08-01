@@ -8,6 +8,7 @@ view "EU" {
 	match-clients {
 		key eu.geo.oftc.net.;
 		! key na.geo.oftc.net.;
+		! key as.geo.oftc.net.;
 		! key default.geo.oftc.net.;
 		ns_oftc; // use this view for non-geo requests/transfers
 		ns_spi; // use this view for non-geo requests/transfers
@@ -35,9 +36,7 @@ view "EU" {
 		};
 		allow-query { any; };
 		allow-update { key eu.geo.oftc.net.; };
-		allow-transfer {
-			key eu.geo.oftc.net.;
-		};
+		allow-transfer { key eu.geo.oftc.net.; };
 	};
 };
 
@@ -45,6 +44,7 @@ view "NA" {
 	match-clients {
 		! key eu.geo.oftc.net.;
 		key na.geo.oftc.net.;
+		! key as.geo.oftc.net.;
 		! key default.geo.oftc.net.;
 		NA;
 		SA;
@@ -68,9 +68,37 @@ view "NA" {
 		};
 		allow-query { any; };
 		allow-update { key na.geo.oftc.net.; };
-		allow-transfer {
-			key na.geo.oftc.net.;
+		allow-transfer { key na.geo.oftc.net.; };
+	};
+};
+
+view "AS" {
+	match-clients {
+		! key eu.geo.oftc.net.;
+		! key na.geo.oftc.net.;
+		key as.geo.oftc.net.;
+		! key default.geo.oftc.net.;
+		AS;
+		OC;
+	};
+
+	include "/etc/bind/named.conf.local-as";
+	include "/etc/bind/named.conf.default-zones";
+
+	zone "geo.oftc.net" {
+		type master;
+		file "db.as.geo.oftc.net";
+		auto-dnssec maintain;
+		inline-signing yes;
+		notify explicit;
+		also-notify {
+			<%- @dns_slaves.each do |slave| -%>
+			<%= slave %> key as.geo.oftc.net.;
+			<%- end -%>
 		};
+		allow-query { any; };
+		allow-update { key as.geo.oftc.net.; };
+		allow-transfer { key as.geo.oftc.net.; };
 	};
 };
 
@@ -78,6 +106,7 @@ view "default" {
 	match-clients {
 		! key eu.geo.oftc.net.;
 		! key na.geo.oftc.net.;
+		! key as.geo.oftc.net.;
 		key default.geo.oftc.net.;
 		any;
 	};
@@ -98,9 +127,7 @@ view "default" {
 		};
 		allow-query { any; };
 		allow-update { key default.geo.oftc.net.; };
-		allow-transfer {
-			key default.geo.oftc.net.;
-		};
+		allow-transfer { key default.geo.oftc.net.; };
 	};
 };
 
