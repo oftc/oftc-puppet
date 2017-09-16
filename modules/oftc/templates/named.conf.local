@@ -1,0 +1,42 @@
+include "/etc/bind/named.conf.shared-keys";
+
+zone "oftc.net" {
+	type slave;
+	file "slave-oftc.net";
+	masters {
+		<%- @dns_masters.each do |master| -%>
+		<%= master %>;
+		<%- end -%>
+	};
+	allow-query { any; };
+	allow-transfer { };
+	notify explicit;
+};
+
+zone "oftc.eu" {
+	type slave;
+	file "slave-oftc.eu";
+	masters {
+		<%- @dns_masters.each do |master| -%>
+		<%= master %>;
+		<%- end -%>
+	};
+	allow-query { any; };
+	allow-transfer { };
+	notify explicit;
+};
+
+zone "oftc.info" {
+	type slave;
+	file "slave-oftc.info";
+	masters {
+		<%- @dns_masters.each do |master| -%>
+		<%= master %>;
+		<%- end -%>
+	};
+	allow-query { any; };
+	allow-transfer { };
+	notify explicit;
+};
+
+// vim:syn=named:
