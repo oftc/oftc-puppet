@@ -5,6 +5,10 @@ These are the puppet classes driving the hosts running oftc.net. The actual
 host->class mapping is done in LDAP and is not part of this repository.
 The hieradata is also in a separate repository.
 
+Currently, too much code is placed under modules/oftc/, please add new stuff as
+a separate module (unless trivial). Ideally, the `oftc::whatever` namespace
+should only be used as entry points from the LDAP puppetClass records.
+
 Bootstrapping
 -------------
 
@@ -27,10 +31,10 @@ oftc-puppet$ sudo ln -s $HOME/oftc-puppet/hieradata/oftc.yaml /etc/puppet/hierad
 oftc-puppet$ ... hack away ...
 ```
 
-On the host in question, do `sudo puppet agent -t --environment $USER`. The
-only thing that can't be tested without pushing first is changes to
-hieradata/$HOST.yaml. Also, the list of puppet classes from LDAP is fixed and
-not configurable per environment.
+On the host in question, do `sudo puppet agent -t --environment $USER`
+(alias: `pat --environment $USER`). The only thing that can't be tested without
+pushing first is changes to hieradata/$HOST.yaml. Also, the list of puppet
+classes from LDAP is fixed and not configurable per environment.
 
 ```
 oftc-puppet$ git commit && git push
