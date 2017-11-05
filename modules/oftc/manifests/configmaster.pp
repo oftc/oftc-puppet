@@ -5,11 +5,13 @@ class oftc::configmaster {
   include userdir_ldap::master
   include ::geodns
 
+  # Let's Encrypt host list
   $oftchosts = hiera('oftchosts')
-
-  file { '/etc/oftc/acme/.domains.oftc.txt':
-    mode => '0644', owner => root, group => root,
-    content => template('oftc/hosts'),
+  $oftchosts.each |$host| {
+    file_line { "/etc/oftc/acme/domains.txt-${host['name']}":
+      path => '/etc/oftc/acme/domains.txt',
+      line => "${host['name']}.oftc.net",
+    }
   }
 
   # firewall rules
