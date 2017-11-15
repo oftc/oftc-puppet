@@ -9,6 +9,7 @@ class oftc::base {
     'dnsutils', # for nslookup/check_dns
     'etckeeper',
     'git',
+    'htop',
     'iptables',
     'less',
     'locales-all',
