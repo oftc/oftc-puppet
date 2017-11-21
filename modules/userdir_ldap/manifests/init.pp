@@ -1,14 +1,14 @@
 class userdir_ldap {
   apt::key { 'db.debian.org':
-    key => 'D984518A0DCB4EEC519573DF661EBB0E456D79AB',
-    key_content => template('userdir_ldap/db.debian.org.asc'),
+    id => 'D984518A0DCB4EEC519573DF661EBB0E456D79AB',
+    content => template('userdir_ldap/db.debian.org.asc'),
+    server => 'hkps.pool.sks-keyservers.net', # suppress a warning in /usr/share/puppet/modules/apt/manifests/key.pp
   }
 
   apt::source { 'db.debian.org':
     location => 'http://db.debian.org/debian-admin',
     release => 'debian-all',
     repos => 'main',
-    include_src => false,
     require => Apt::Key['db.debian.org'],
   }
 
