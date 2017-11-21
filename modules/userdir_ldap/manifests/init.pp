@@ -16,6 +16,13 @@ class userdir_ldap {
     require => Apt::Source['db.debian.org'],
   }
 
+  $configserver = hiera('configserver')
+  file { '/etc/userdir-ldap/userdir-ldap.conf':
+    mode => '0644', owner => root, group => root,
+    content => template('userdir_ldap/userdir-ldap.conf'),
+    require => Package['userdir-ldap'],
+  }
+
   # run every 15min from cron instead of daemonizing
   $hash = fqdn_rand(14) + 1 # on master: 1 min after ud-generate
   file { '/etc/cron.d/ud-replicate':
