@@ -11,7 +11,6 @@ view "EU" {
 		! key as.geo.oftc.net.;
 		! key default.geo.oftc.net.;
 		AF;
-		AS;
 		EU;
 	};
 
@@ -47,8 +46,6 @@ view "NA" {
 		! key default.geo.oftc.net.;
 		NA;
 		SA;
-		OC;
-		AN;
 	};
 
 	<%- @dns_masters.each do |master| -%>
@@ -81,8 +78,8 @@ view "AS" {
 		! key na.geo.oftc.net.;
 		key as.geo.oftc.net.;
 		! key default.geo.oftc.net.;
+		AS;
 		OC;
-		AN;
 	};
 
 	<%- @dns_masters.each do |master| -%>
@@ -115,6 +112,7 @@ view "default" {
 		! key na.geo.oftc.net.;
 		! key as.geo.oftc.net.;
 		key default.geo.oftc.net.;
+		// AN;
 		any;
 	};
 
