@@ -40,6 +40,6 @@ LINES=$(( ${WC% *} + 10 ))
 trap "ipset destroy $SET_NEW" 0 2 3 15
 
 ( echo "create $SET_NEW $TYPE maxelem $LINES"
-  grep '.' "$FILE" | sed -e "s/^/add $SET_NEW /" # remove empty lines
+  grep '.' "$FILE" | sed -e "s/^/add -exist $SET_NEW /" # remove empty lines
   echo "swap $SET_NEW $SET"
 ) | ipset restore
