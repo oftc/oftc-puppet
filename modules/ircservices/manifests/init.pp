@@ -10,6 +10,7 @@ class ircservices {
     #'libssl-dev', # libssl(1.0)-dev is installed by oftc::irc anyway
     'ruby', 'ruby-dev',
     'flex', 'bison',
+    'check-postgres', # monitoring
   ])
 
   # init/oftc_user are custom facts from facts.d/oftc
