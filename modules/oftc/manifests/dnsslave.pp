@@ -26,6 +26,23 @@ class oftc::dnsslave {
     notify => Service['bind9'],
   }
 
+  $oftc_xfer_key = hiera('oftc_xfer_key')
+  file { '/etc/bind/named.conf.shared-keys':
+    mode => '640', owner => root, group => bind,
+    content => template('oftc/named.conf.shared-keys'),
+    require => Package['bind9'],
+    notify => Service['bind9'],
+  }
+
+  file { '/etc/bind/named.conf.tor':
+    ensure  => 'present',
+    mode    => '0644',
+    replace => 'no', # touch file if not there yet
+    content => "",
+    require => Package['bind9'],
+    notify  => Service['bind9'],
+  }
+
   service { 'bind9': }
 
   include ferm::domain

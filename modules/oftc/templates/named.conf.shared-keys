@@ -1,0 +1,10 @@
+key oftc-xfer. {
+	algorithm HMAC-SHA256;
+	secret "<%= @oftc_xfer_key %>";
+};
+
+<%- @dns_masters.each do |master| -%>
+server <%= master %> {
+	keys { oftc-xfer.; };
+};
+<%- end -%>
