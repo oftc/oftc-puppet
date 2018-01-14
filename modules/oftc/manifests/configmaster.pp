@@ -15,7 +15,7 @@ class oftc::configmaster {
   }
 
   # firewall rules
-  include oftc::domain
+  include ferm::domain
   include oftc::postgresql
 
   # accept mail for db.oftc.net

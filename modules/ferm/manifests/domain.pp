@@ -1,5 +1,4 @@
-class oftc::domain {
-  # TODO: use more specific classes
+class ferm::domain {
 
   ferm::port { 'domain/udp':
     port => 'domain',

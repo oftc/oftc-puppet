@@ -27,4 +27,7 @@ class oftc::dnsslave {
   }
 
   service { 'bind9': }
+
+  include ferm::domain
+
 }
