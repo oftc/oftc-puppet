@@ -6,10 +6,9 @@ class syslog_ng::loghost {
     notify => Service['syslog-ng'],
   }
 
-  $expire_logs = 90;
   file { '/etc/cron.daily/syslog-ng-remote':
     mode => '0755', owner => root, group => root,
-    content => "#!/bin/sh\nfind /var/log/hosts -type f -mtime +$expire_logs -delete\n",
+    source => "puppet:///modules/syslog_ng/syslog-ng-remote.daily",
   }
 
   file { '/usr/local/bin/check_remote_logging':

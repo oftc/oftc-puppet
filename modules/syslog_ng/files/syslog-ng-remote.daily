@@ -1,0 +1,4 @@
+#!/bin/sh
+
+find /var/log/hosts -type f -mtime +90 -delete
+find /var/log/hosts -type f -mtime +1 -not -name '*.gz' -print0 | xargs -0 -r gzip
