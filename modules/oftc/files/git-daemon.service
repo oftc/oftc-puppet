@@ -1,0 +1,18 @@
+[Unit]
+Description=Git Daemon
+
+[Service]
+ExecStart=/usr/bin/git daemon --reuseaddr --base-path=/srv/git/ /srv/git/
+
+Restart=always
+RestartSec=500ms
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=git-daemon
+
+User=nobody
+Group=nogroup
+
+[Install]
+WantedBy=multi-user.target
