@@ -1,0 +1,10 @@
+/var/log/oftc/*.log {
+    # keep data for at most 90 days (https://www.oftc.net/Privacy_Policy/)
+    rotate 87
+    daily
+    dateext
+    compress
+    delaycompress
+    copytruncate
+    create 640 oftc oftc-is
+}

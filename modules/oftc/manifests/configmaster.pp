@@ -14,6 +14,13 @@ class oftc::configmaster {
     }
   }
 
+  # snotes log
+  file { '/etc/logrotate.d/oftc':
+    mode => '0644',
+    source => "puppet:///modules/oftc/logrotate.oftc",
+    require => Package['logrotate'],
+  }
+
   # firewall rules
   include ferm::domain
   include oftc::postgresql
