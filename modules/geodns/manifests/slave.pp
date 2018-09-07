@@ -10,4 +10,8 @@ class geodns::slave { # DNS slave server
     require => Package['bind9'],
     notify => Service['bind9'],
   }
+  file { '/etc/bind/named.conf.local':
+    ensure => file,
+    mode => '644',
+  }
 }
