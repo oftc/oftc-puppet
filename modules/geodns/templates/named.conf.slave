@@ -3,6 +3,7 @@ include "/etc/bind/named.conf.options";
 include "/etc/bind/continents.acl";
 //include "/etc/bind/named.conf.shared-keys";
 include "/etc/bind/geodns.keys";
+include "/etc/bind/named.conf.local";
 
 view "EU" {
 	match-clients {
