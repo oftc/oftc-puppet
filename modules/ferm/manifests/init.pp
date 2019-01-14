@@ -52,6 +52,8 @@ class ferm {
   service { 'ferm':
     hasstatus => false,
     status => '/bin/true',
+    hasrestart => true,
+    restart => '/etc/init.d/ferm reload',
   }
 
   # remove old service
