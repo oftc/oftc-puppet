@@ -3,7 +3,7 @@
 set -eu
 
 HOST="$1"
-[ "$HOST" = "strange" ] && HOST="zombie-scan"
+#[ "$HOST" = "strange" ] && HOST="zombie-scan"
 DATE1=$(date '+%Y-%m-%d')
 DATE2=$(date '+%Y-%m-%d' -d 'now -4 hours')
 
