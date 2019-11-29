@@ -1,7 +1,7 @@
 class userdir_ldap {
   apt::key { 'db.debian.org':
     id => 'D984518A0DCB4EEC519573DF661EBB0E456D79AB',
-    content => template('userdir_ldap/db.debian.org.asc'),
+    content => template('userdir_ldap/db.debian.org.asc'), # from https://salsa.debian.org/dsa-team/mirror/dsa-puppet/blob/master/modules/debian_org/files/db.debian.org.gpg
     server => 'hkps.pool.sks-keyservers.net', # suppress a warning in /usr/share/puppet/modules/apt/manifests/key.pp
   }
 
