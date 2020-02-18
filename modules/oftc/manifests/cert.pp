@@ -50,4 +50,11 @@ class oftc::cert {
     creates => "/etc/ssl/certs/dh1024",
     require => Package['ca-certificates'],
   }
+
+  file { '/var/lib/puppet/ssl/certs/ca.pem':
+    source => 'puppet:///modules/oftc/ca_crt.pem',
+    mode => '0644',
+    owner => 'puppet',
+    group => 'puppet',
+  }
 }
