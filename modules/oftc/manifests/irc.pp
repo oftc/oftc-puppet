@@ -25,6 +25,11 @@ class oftc::irc {
     source => "puppet:///modules/oftc/oftc_limits.conf",
   }
 
+  file { '/etc/systemd/system/user@10100.service.d/limits.conf':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/oftc/oftc_systemd_limits.conf",
+  }
+
   munin::plugin {[
     'irc',
     'ircmemory',
