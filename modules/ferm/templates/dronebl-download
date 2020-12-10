@@ -1,4 +1,5 @@
 #!/bin/sh
+# Managed by Puppet
 
 # rsync raw dronebl buildzone files and convert them to plain ip/net lists
 
@@ -19,7 +20,7 @@ filter () {
   local src="$1"
   local dst="$2"
   if ! test -f $dst.md5sum || ! md5sum --status -c $dst.md5sum; then
-    grep -o '^[0-9a-f][^ 	]*' $src | sort -u > $DST/$dst.tmp
+    grep -o '^[0-9a-f][^ 	]*' $src | /usr/local/bin/sort_and_combine_addresses > $DST/$dst.tmp
     mv $DST/$dst.tmp $DST/$dst
     md5sum $src > $dst.md5sum
   fi

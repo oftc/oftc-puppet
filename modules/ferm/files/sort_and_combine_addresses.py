@@ -1,0 +1,188 @@
+#!/usr/bin/python3
+# Managed by Puppet
+
+# Copyright 2020 Eric Mertens <emertens@gmail.com>
+# Ported to python, added IPv6 support, and optimized for performance
+# by Doug Freed <dwfreed@mtu.edu>
+# SPDX-License-Identifier: ISC
+
+import sys
+
+mode = 0
+ipv4_max = 0xFFFFFFFF
+ipv6_max = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+addr_max = 0
+cidr_max = 0
+ipv4_netmasks = (
+        0x00000000,
+        0x80000000, 0xC0000000, 0xE0000000, 0xF0000000, 0xF8000000, 0xFC000000, 0xFE000000, 0xFF000000,
+        0xFF800000, 0xFFC00000, 0xFFE00000, 0xFFF00000, 0xFFF80000, 0xFFFC0000, 0xFFFE0000, 0xFFFF0000,
+        0xFFFF8000, 0xFFFFC000, 0xFFFFE000, 0xFFFFF000, 0xFFFFF800, 0xFFFFFC00, 0xFFFFFE00, 0xFFFFFF00,
+        0xFFFFFF80, 0xFFFFFFC0, 0xFFFFFFE0, 0xFFFFFFF0, 0xFFFFFFF8, 0xFFFFFFFC, 0xFFFFFFFE, 0xFFFFFFFF
+        )
+ipv6_netmasks = (
+        0x00000000000000000000000000000000,
+        0x80000000000000000000000000000000, 0xC0000000000000000000000000000000, 0xE0000000000000000000000000000000, 0xF0000000000000000000000000000000,
+        0xF8000000000000000000000000000000, 0xFC000000000000000000000000000000, 0xFE000000000000000000000000000000, 0xFF000000000000000000000000000000,
+        0xFF800000000000000000000000000000, 0xFFC00000000000000000000000000000, 0xFFE00000000000000000000000000000, 0xFFF00000000000000000000000000000,
+        0xFFF80000000000000000000000000000, 0xFFFC0000000000000000000000000000, 0xFFFE0000000000000000000000000000, 0xFFFF0000000000000000000000000000,
+        0xFFFF8000000000000000000000000000, 0xFFFFC000000000000000000000000000, 0xFFFFE000000000000000000000000000, 0xFFFFF000000000000000000000000000,
+        0xFFFFF800000000000000000000000000, 0xFFFFFC00000000000000000000000000, 0xFFFFFE00000000000000000000000000, 0xFFFFFF00000000000000000000000000,
+        0xFFFFFF80000000000000000000000000, 0xFFFFFFC0000000000000000000000000, 0xFFFFFFE0000000000000000000000000, 0xFFFFFFF0000000000000000000000000,
+        0xFFFFFFF8000000000000000000000000, 0xFFFFFFFC000000000000000000000000, 0xFFFFFFFE000000000000000000000000, 0xFFFFFFFF000000000000000000000000,
+        0xFFFFFFFF800000000000000000000000, 0xFFFFFFFFC00000000000000000000000, 0xFFFFFFFFE00000000000000000000000, 0xFFFFFFFFF00000000000000000000000,
+        0xFFFFFFFFF80000000000000000000000, 0xFFFFFFFFFC0000000000000000000000, 0xFFFFFFFFFE0000000000000000000000, 0xFFFFFFFFFF0000000000000000000000,
+        0xFFFFFFFFFF8000000000000000000000, 0xFFFFFFFFFFC000000000000000000000, 0xFFFFFFFFFFE000000000000000000000, 0xFFFFFFFFFFF000000000000000000000,
+        0xFFFFFFFFFFF800000000000000000000, 0xFFFFFFFFFFFC00000000000000000000, 0xFFFFFFFFFFFE00000000000000000000, 0xFFFFFFFFFFFF00000000000000000000,
+        0xFFFFFFFFFFFF80000000000000000000, 0xFFFFFFFFFFFFC0000000000000000000, 0xFFFFFFFFFFFFE0000000000000000000, 0xFFFFFFFFFFFFF0000000000000000000,
+        0xFFFFFFFFFFFFF8000000000000000000, 0xFFFFFFFFFFFFFC000000000000000000, 0xFFFFFFFFFFFFFE000000000000000000, 0xFFFFFFFFFFFFFF000000000000000000,
+        0xFFFFFFFFFFFFFF800000000000000000, 0xFFFFFFFFFFFFFFC00000000000000000, 0xFFFFFFFFFFFFFFE00000000000000000, 0xFFFFFFFFFFFFFFF00000000000000000,
+        0xFFFFFFFFFFFFFFF80000000000000000, 0xFFFFFFFFFFFFFFFC0000000000000000, 0xFFFFFFFFFFFFFFFE0000000000000000, 0xFFFFFFFFFFFFFFFF0000000000000000,
+        0xFFFFFFFFFFFFFFFF8000000000000000, 0xFFFFFFFFFFFFFFFFC000000000000000, 0xFFFFFFFFFFFFFFFFE000000000000000, 0xFFFFFFFFFFFFFFFFF000000000000000,
+        0xFFFFFFFFFFFFFFFFF800000000000000, 0xFFFFFFFFFFFFFFFFFC00000000000000, 0xFFFFFFFFFFFFFFFFFE00000000000000, 0xFFFFFFFFFFFFFFFFFF00000000000000,
+        0xFFFFFFFFFFFFFFFFFF80000000000000, 0xFFFFFFFFFFFFFFFFFFC0000000000000, 0xFFFFFFFFFFFFFFFFFFE0000000000000, 0xFFFFFFFFFFFFFFFFFFF0000000000000,
+        0xFFFFFFFFFFFFFFFFFFF8000000000000, 0xFFFFFFFFFFFFFFFFFFFC000000000000, 0xFFFFFFFFFFFFFFFFFFFE000000000000, 0xFFFFFFFFFFFFFFFFFFFF000000000000,
+        0xFFFFFFFFFFFFFFFFFFFF800000000000, 0xFFFFFFFFFFFFFFFFFFFFC00000000000, 0xFFFFFFFFFFFFFFFFFFFFE00000000000, 0xFFFFFFFFFFFFFFFFFFFFF00000000000,
+        0xFFFFFFFFFFFFFFFFFFFFF80000000000, 0xFFFFFFFFFFFFFFFFFFFFFC0000000000, 0xFFFFFFFFFFFFFFFFFFFFFE0000000000, 0xFFFFFFFFFFFFFFFFFFFFFF0000000000,
+        0xFFFFFFFFFFFFFFFFFFFFFF8000000000, 0xFFFFFFFFFFFFFFFFFFFFFFC000000000, 0xFFFFFFFFFFFFFFFFFFFFFFE000000000, 0xFFFFFFFFFFFFFFFFFFFFFFF000000000,
+        0xFFFFFFFFFFFFFFFFFFFFFFF800000000, 0xFFFFFFFFFFFFFFFFFFFFFFFC00000000, 0xFFFFFFFFFFFFFFFFFFFFFFFE00000000, 0xFFFFFFFFFFFFFFFFFFFFFFFF00000000,
+        0xFFFFFFFFFFFFFFFFFFFFFFFF80000000, 0xFFFFFFFFFFFFFFFFFFFFFFFFC0000000, 0xFFFFFFFFFFFFFFFFFFFFFFFFE0000000, 0xFFFFFFFFFFFFFFFFFFFFFFFFF0000000,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFF8000000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFC000000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFE000000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFF000000,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFFF800000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFC00000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFE00000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFF00000,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFFFF80000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFC0000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFE0000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFF8000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFC000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0,
+        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
+        )
+netmasks = ()
+
+def make_netmask(cidr):
+    return netmasks[cidr]
+
+def parse_addr(line):
+    global mode, addr_max, cidr_max, netmasks
+
+    addr, _, cidr = line.partition('/')
+
+    if not mode:
+        if '.' in addr:
+            mode = 4
+            addr_max = ipv4_max
+            cidr_max = 32
+            netmasks = ipv4_netmasks
+        elif ':' in addr:
+            mode = 6
+            addr_max = ipv6_max
+            cidr_max = 128
+            netmasks = ipv6_netmasks
+
+    if mode == 4:
+        parts = addr.split('.')
+        addr = (int(parts[0]) << 24 |
+            int(parts[1]) << 16 |
+            int(parts[2]) << 8 |
+            int(parts[3])) & ipv4_max
+    elif mode == 6:
+        parts = [0, 0, 0, 0, 0, 0, 0, 0]
+        left, _, right = addr.partition('::')
+        for i, part in enumerate(left.split(':')):
+            parts[i] = int(part, 16)
+        if right and right != '\n':
+            for i, part in enumerate(reversed(right.split(':'))):
+                parts[-i-1] = int(part, 16)
+        addr = (parts[0] << 112 |
+            parts[1] << 96 |
+            parts[2] << 80 |
+            parts[3] << 64 |
+            parts[4] << 48 |
+            parts[5] << 32 |
+            parts[6] << 16 |
+            parts[7]) & ipv6_max
+
+    if cidr and cidr != '\n':
+        cidr = int(cidr)
+    else:
+        cidr = cidr_max
+
+    return (addr, cidr)
+
+def print_addr(addr, cidr):
+    if cidr == cidr_max:
+        if mode == 4:
+            print("{}.{}.{}.{}".format(
+                addr >> 24 & 0xFF,
+                addr >> 16 & 0xFF,
+                addr >> 8 & 0xFF,
+                addr & 0xFF))
+        elif mode == 6:
+            print("{:x}:{:x}:{:x}:{:x}:{:x}:{:x}:{:x}:{:x}".format(
+                addr >> 112 & 0xFFFF,
+                addr >> 96 & 0xFFFF,
+                addr >> 80 & 0xFFFF,
+                addr >> 64 & 0xFFFF,
+                addr >> 48 & 0xFFFF,
+                addr >> 32 & 0xFFFF,
+                addr >> 16 & 0xFFFF,
+                addr & 0xFFFF))
+    else:
+        if mode == 4:
+            print("{}.{}.{}.{}/{}".format(
+                addr >> 24 & 0xFF,
+                addr >> 16 & 0xFF,
+                addr >> 8 & 0xFF,
+                addr & 0xFF,
+                cidr))
+        elif mode == 6:
+            print("{:x}:{:x}:{:x}:{:x}:{:x}:{:x}:{:x}:{:x}/{}".format(
+                addr >> 112 & 0xFFFF,
+                addr >> 96 & 0xFFFF,
+                addr >> 80 & 0xFFFF,
+                addr >> 64 & 0xFFFF,
+                addr >> 48 & 0xFFFF,
+                addr >> 32 & 0xFFFF,
+                addr >> 16 & 0xFFFF,
+                addr & 0xFFFF,
+                cidr))
+
+
+def emit(start, end):
+    if start == end:
+        print_addr(start, cidr_max)
+    else:
+        while start <= end:
+            if start == 0:
+                start_cidr = cidr_max
+            else:
+                start_cidr = cidr_max - (~start & (start - 1)).bit_length()
+                if start_cidr < 0:
+                    start_cidr = 0
+            for n in range(start_cidr, cidr_max+1):
+                new_end = (start | (~make_netmask(n))) & addr_max
+                if end >= new_end:
+                    print_addr(start, n)
+                    start = new_end + 1
+                    break
+
+def main():
+    started = False
+    start = 0
+    end = 0
+    for addr, cidr in sorted(map(parse_addr, sys.stdin)):
+        addr_end = (addr | (~make_netmask(cidr))) & addr_max
+
+        if started and addr <= end + 1:
+            if end < addr_end:
+                end = addr_end
+        else:
+            if started:
+                emit(start, end)
+            else:
+                started = True
+            start = addr
+            end = addr_end
+    if started:
+        emit(start, end)
+
+if __name__ == '__main__':
+    main()
