@@ -1,5 +1,5 @@
 class onion_service {
-  ensure_packages (['tor'])
+  ensure_packages(['tor'])
 
   service { 'tor':
     ensure => running,
@@ -10,4 +10,5 @@ class onion_service {
     mode => '0644', owner => root, group => root,
     content => template('onion_service/torrc'),
     notify => Service['tor'],
+  }
 }
