@@ -26,12 +26,4 @@ class oftc::ssh {
     ensure => running,
     enable => true,
   }
-
-  augeas { 'ssh_config':
-    context => "/files/etc/ssh/ssh_config",
-    changes => [
-      'set Host/HashKnownHosts no',
-    ],
-    require => Package['openssh-client'],
-  }
 }
