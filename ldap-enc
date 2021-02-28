@@ -4,7 +4,7 @@ set -eu
 
 HOST="$1"
 
-CLASSES=$(ldapsearch -h db.oftc.net \
+CLASSES=$(ldapsearch -H ldaps://db.oftc.net \
 	-b ou=hosts,dc=oftc,dc=net \
 	-x "(&(objectclass=puppetClient)(hostname=$HOST))" \
 	puppetclass | sed -ne 's/puppetClass:/ -/p')
