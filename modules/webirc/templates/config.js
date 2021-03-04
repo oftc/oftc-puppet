@@ -3,7 +3,6 @@ var path = require('path');
 
 var key = fs.readFileSync('/etc/ssl/private/<%= @certname %>.key');
 var cert = fs.readFileSync('/etc/ssl/certs/<%= @certname %>-chained.pem');
-var ca = fs.readFileSync('/etc/ssl/certs/<%= @certname %>-chained.pem');
 
 var irccertPath = path.join('/home/oftc/oftc', 'hybrid', 'etc', 'here-certificate.pem');
 var irccert = fs.readFileSync(irccertPath);
@@ -38,7 +37,6 @@ module.exports = {
       port: 8443,
       key: key,
       cert: cert,
-      ca: [ ca ],
       enabled: true,
       redirectUrl: 'https://<%= @redirect %>',
     },
