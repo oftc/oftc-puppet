@@ -23,7 +23,7 @@ class oftc::recvconf {
   $configserverips = join(hiera("configserverips"), ',')
   file_line { 'recvconf push key':
     path => '/root/.ssh/authorized_keys',
-    line => template("oftc/pushconfig.key"),
+    line => strip(template("oftc/pushconfig.key")),
     match => 'pushconfig@oftc',
     require => File['/root/.ssh'],
   }

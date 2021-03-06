@@ -56,7 +56,7 @@ class oftc::base {
 
   file_line { 'root mail alias':
     path => '/etc/aliases',
-    line => "root: infrastructure@oftc.net\n",
+    line => "root: infrastructure@oftc.net",
     match => "^root:",
     notify => Exec['newaliases'],
   }
