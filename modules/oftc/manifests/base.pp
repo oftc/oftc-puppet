@@ -54,12 +54,6 @@ class oftc::base {
     require => Package['cron'],
   }
 
-  file_line { 'sudoers.d':
-    path => '/etc/sudoers',
-    line => "#includedir /etc/sudoers.d\n",
-    require => Package['sudo'],
-  }
-
   file_line { 'root mail alias':
     path => '/etc/aliases',
     line => "root: infrastructure@oftc.net\n",
