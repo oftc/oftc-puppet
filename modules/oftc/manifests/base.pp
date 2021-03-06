@@ -31,6 +31,16 @@ class oftc::base {
     'zsh',
   ])
 
+  file { '/etc/alternatives/editor':
+    ensure => 'link',
+    target => '/usr/bin/vim.basic',
+    notify => Exec['update-alternatives editor'],
+  }
+  exec { 'update-alternatives editor':
+    command => '/usr/bin/update-alternatives --set editor /usr/bin/vim.basic',
+    refreshonly => true,
+  }
+
   # revert to original file (we used to modify it)
   # remaining diff to original is if ... PS1 ... fi
   file { '/etc/bash.bashrc':
