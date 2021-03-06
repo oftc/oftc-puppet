@@ -1,8 +1,8 @@
 class oftc::nrpe {
   ensure_packages ([
     'nagios-nrpe-server',
-    'nagios-plugins-basic', # monitoring-plugins-basic on jessie
-    'nagios-plugins-standard', # check_mailq (monitoring-plugins-standard on jessie)
+    'monitoring-plugins-basic',
+    'monitoring-plugins-standard', # check_mailq
     'libyaml-syck-perl', # check_puppet
     'lsof', # nagios-check-libs
   ])
