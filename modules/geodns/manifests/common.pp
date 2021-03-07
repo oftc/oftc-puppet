@@ -2,7 +2,7 @@ class geodns::common {
   ensure_packages ([
     'bind9',
     'bind9utils',
-    'geoip-database-contrib',
+    'geoip-database-extra', # data package (also provided by geoip-database-contrib downloader package)
   ])
 
   $bind_listen_v4 = hiera('bind_listen_v4')
