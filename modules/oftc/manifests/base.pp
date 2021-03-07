@@ -15,6 +15,7 @@ class oftc::base {
     'locales-all',
     'logrotate',
     'lsb-release',
+    'man-db',
     'mlocate',
     'molly-guard',
     'mtr-tiny',
@@ -84,5 +85,11 @@ class oftc::base {
   exec { 'systemctl daemon-reload':
     command => '/bin/systemctl daemon-reload',
     refreshonly => true,
+  }
+
+  # root directory for all user homes
+  file { '/home/oftc':
+    mode => '0755', owner => root, group => root,
+    ensure => directory,
   }
 }
