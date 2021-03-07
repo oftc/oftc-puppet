@@ -65,4 +65,4 @@
     command: puppet agent --enable
 
   - name: Initial puppet run
-    command: puppet agent -t --pluginsync
+    command: puppet agent -t
