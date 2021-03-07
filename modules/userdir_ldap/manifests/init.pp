@@ -53,7 +53,7 @@ class userdir_ldap {
   }
 
   exec { 'pam-auth-update':
-    command => '/usr/sbin/pam-auth-update',
+    command => '/usr/sbin/pam-auth-update --enable mkhomedir',
     refreshonly => true,
   }
 
