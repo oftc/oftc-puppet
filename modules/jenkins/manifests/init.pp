@@ -1,11 +1,15 @@
 class jenkins {
+  file { '/etc/apt/trusted.gpg.d/jenkins-ci.org.asc':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/jenkins/jenkins-ci.org.asc",
+  }
+
   apt::source { 'jenkins':
     location          => 'http://pkg.jenkins-ci.org/debian-stable binary/',
     release           => '',
     repos             => '',
     key               => '150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6',
-    key_source        => 'http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key',
-    include_src       => false,
+    require           => File['/etc/apt/trusted.gpg.d/jenkins-ci.org.asc'],
   }
 
   package { 'jenkins':
