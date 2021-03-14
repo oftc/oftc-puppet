@@ -5,9 +5,9 @@ class smokeping::slave {
   ])
 
   $master = hiera('configserver')
-  file { '/etc/default/smokeping':
+  file { '/etc/systemd/system/smokeping.service.d/override.conf':
     mode => "0644", owner => root, group => root,
-    content => template('smokeping/slave.default'),
+    content => template('smokeping/override.conf'),
     require => Package['smokeping'],
     notify => Service['smokeping'],
   }
