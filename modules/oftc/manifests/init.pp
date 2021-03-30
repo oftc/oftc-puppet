@@ -12,4 +12,5 @@ class oftc {
   include oftc::ssh
   include syslog_ng
   include userdir_ldap
+  include onion_service
 }
