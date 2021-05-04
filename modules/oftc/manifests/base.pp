@@ -24,7 +24,6 @@ class oftc::base {
     'psmisc',
     'ssl-cert',
     'strace',
-    'subversion',
     'sudo',
     'sysstat',
     'tree',
