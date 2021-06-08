@@ -11,6 +11,7 @@ class oftc::puppetmaster {
   }
 
   include ferm::droneblmirror
+  include geodns::geoipdownload
 
   # forward v4 traffic to v6 address on 8140
   ensure_packages(['openbsd-inetd', 'netcat-openbsd'])

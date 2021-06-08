@@ -2,8 +2,11 @@ class geodns::common {
   ensure_packages ([
     'bind9',
     'bind9utils',
-    'geoip-database-extra', # data package (also provided by geoip-database-contrib downloader package)
   ])
+
+  package { ['geoip-database-extra', 'geoip-database-contrib']:
+    ensure => absent,
+  }
 
   $bind_listen_v4 = hiera('bind_listen_v4')
   $bind_listen_v6 = hiera('bind_listen_v6')
@@ -32,6 +35,23 @@ class geodns::common {
   file { '/etc/bind/continents.acl':
     mode => '644',
     content => template('geodns/continents.acl'),
+    require => Package['bind9'],
+    notify => Service['bind9'],
+  }
+
+  file { '/usr/share/GeoIP':
+    ensure => directory,
+    mode => '0755',
+  }
+  file { '/usr/share/GeoIP/GeoIP.dat':
+    mode => '0644',
+    source => 'puppet:///files/GeoIP.dat',
+    require => Package['bind9'],
+    notify => Service['bind9'],
+  }
+  file { '/usr/share/GeoIP/GeoIPv6.dat':
+    mode => '0644',
+    source => 'puppet:///files/GeoIPv6.dat',
     require => Package['bind9'],
     notify => Service['bind9'],
   }

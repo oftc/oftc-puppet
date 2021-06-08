@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+DIR="/etc/puppet/files"
+
+cd /var/cache/GeoIP
+
+su -c "wget -q --mirror https://mailfud.org/geoip-legacy/GeoIP.dat.gz https://mailfud.org/geoip-legacy/GeoIPv6.dat.gz" geoip
+
+for file in GeoIP.dat GeoIPv6.dat; do
+  if ! test -f $DIR/$file || test mailfud.org/geoip-legacy/$file.gz -nt $DIR/$file; then
+    gunzip < mailfud.org/geoip-legacy/$file.gz > $DIR/$file
+  fi
+done
