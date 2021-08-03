@@ -1,3 +1,39 @@
+// Managed by Puppet
+
+// Copy standard logging configuration, but don't log security info messages to discard ACL denials
+// Also log category and severity to make further adjustments easier
+logging {
+	channel security_syslog {
+		print-category yes;
+		print-severity yes;
+		severity notice;
+		syslog daemon;
+	};
+	channel regular_syslog {
+		print-category yes;
+		print-severity yes;
+		severity info;
+		syslog daemon;
+	};
+	channel regular_debug {
+		print-category yes;
+		print-severity yes;
+		severity dynamic;
+		file "named.run";
+	};
+	category security {
+		security_syslog;
+		regular_debug;
+	};
+	category unmatched {
+		null;
+	};
+	category default {
+		regular_syslog;
+		regular_debug;
+	};
+};
+
 options {
 	directory "/var/cache/bind";
 	key-directory "/etc/bind/keys";
