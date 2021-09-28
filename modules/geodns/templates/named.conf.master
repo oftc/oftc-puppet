@@ -13,6 +13,7 @@ view "EU" {
 		ns_oftc; // use this view for non-geo requests/transfers
 		ns_spi; // use this view for non-geo requests/transfers
 		localhost; // use this view for non-geo requests/transfers
+		ns_linode; // use this view for non-geo requests/transfers
 		<%- @configserverips.each do |ip| %>
 		<%= ip %>; // use this view for non-geo requests/transfers
 		<%- end %>
