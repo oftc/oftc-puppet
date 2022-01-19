@@ -55,6 +55,12 @@ class geodns::common {
     require => Package['bind9'],
     notify => Service['bind9'],
   }
+  file { '/usr/share/GeoIP/GeoLite2-Country.mmdb':
+    mode => '0644',
+    source => 'puppet:///files/GeoLite2-Country.mmdb',
+    require => Package['bind9'],
+    notify => Service['bind9'],
+  }
 
   service { 'bind9': }
 }
