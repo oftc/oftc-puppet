@@ -35,6 +35,18 @@ class oftc::irc {
     source => "puppet:///modules/oftc/oftc_systemd_limits.conf",
   }
 
+  file_line { '/etc/ssl/openssl.cnf: MinProtocol':
+    path  => '/etc/ssl/openssl.cnf',
+    line  => 'MinProtocol = None',
+    match => '^MinProtocol',
+  }
+
+  file_line { '/etc/ssl/openssl.cnf: CipherString':
+    path  => '/etc/ssl/openssl.cnf',
+    line  => 'CipherString = DEFAULT',
+    match => '^CipherString',
+  }
+
   munin::plugin {[
     'irc',
     'ircmemory',
