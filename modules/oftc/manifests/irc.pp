@@ -1,19 +1,11 @@
 class oftc::irc {
-
-  # oftc-hybrid is not yet compatible with openssl 1.1
-  if $::lsbdistcodename == "stretch" {
-    $libssl_dev = "libssl1.0-dev"
-  } else {
-    $libssl_dev = "libssl-dev"
-  }
-
   ensure_packages ([
     'build-essential',
     'gdb',
     'bison',
     'flex',
     'zlib1g-dev',
-    $libssl_dev,
+    'libssl-dev',
     # building from git:
     'automake',
     'libltdl-dev',
