@@ -36,6 +36,11 @@ class ferm {
     sequence => 25,
     port => 'smtp munin nrpe',
   }
+  ferm::port { 'wireguard':
+    port => '51820',
+    proto => 'udp',
+    target => 'jump OFTC',
+  }
 
   # REJECT everything else (instead of applying the DROP default)
   # but honor this node's forward_policy

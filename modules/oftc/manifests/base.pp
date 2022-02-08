@@ -3,9 +3,11 @@ class oftc::base {
   if $facts['os']['distro']['release']['major'] >= "11" {
     $dnsutils = "bind9-dnsutils"
     $locate = "plocate"
+    $wireguard = "wireguard-tools"
   } else {
     $dnsutils = "dnsutils"
     $locate = "mlocate"
+    $wireguard = "perl" # Yes this is a hack, I know.
   }
 
   ensure_packages ([
@@ -37,6 +39,7 @@ class oftc::base {
     'sysstat',
     'tree',
     'vim',
+    $wireguard,
     'zsh',
   ])
 
