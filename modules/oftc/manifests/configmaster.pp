@@ -1,5 +1,6 @@
 class oftc::configmaster {
   include ansible
+  include ferm::irker
   include munin
   include smokeping
   include userdir_ldap::master
