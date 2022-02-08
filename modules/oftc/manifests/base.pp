@@ -1,4 +1,13 @@
 class oftc::base {
+
+  if $facts['os']['distro']['release']['major'] >= "11" {
+    $dnsutils = "bind9-dnsutils"
+    $locate = "plocate"
+  } else {
+    $dnsutils = "dnsutils"
+    $locate = "mlocate"
+  }
+
   ensure_packages ([
     'at',
     'binutils', # for strings in the running kernel check
@@ -6,17 +15,17 @@ class oftc::base {
     'cron',
     'deborphan',
     'dialog', # for deborphan's orphaner
-    'dnsutils', # for nslookup/check_dns
+    $dnsutils, # for nslookup/check_dns
     'etckeeper',
     'git',
     'htop',
     'iptables',
     'less',
     'locales-all',
+    $locate,
     'logrotate',
     'lsb-release',
     'man-db',
-    'mlocate',
     'molly-guard',
     'mtr-tiny',
     'ncdu',
