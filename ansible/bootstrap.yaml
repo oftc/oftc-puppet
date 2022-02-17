@@ -38,7 +38,7 @@
 
   #- apt: name=userdir-ldap
 
-  - apt: name=puppet-common
+  - apt: name=puppet
 
   - apt: name=lsb-release
 
