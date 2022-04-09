@@ -8,6 +8,6 @@ class geodns::geoipdownload {
 
   file { '/etc/cron.weekly/geoip-update':
     owner => root, group => root, mode => '0755',
-    content => template('geodns/geoip-update'),
+    source => 'puppet:///modules/geodns/geoip-update',
   }
 }

@@ -43,18 +43,6 @@ class geodns::common {
     ensure => directory,
     mode => '0755',
   }
-  file { '/usr/share/GeoIP/GeoIP.dat':
-    mode => '0644',
-    source => 'puppet:///files/GeoIP.dat',
-    require => Package['bind9'],
-    notify => Service['bind9'],
-  }
-  file { '/usr/share/GeoIP/GeoIPv6.dat':
-    mode => '0644',
-    source => 'puppet:///files/GeoIPv6.dat',
-    require => Package['bind9'],
-    notify => Service['bind9'],
-  }
   file { '/usr/share/GeoIP/GeoLite2-Country.mmdb':
     mode => '0644',
     source => 'puppet:///files/GeoLite2-Country.mmdb',

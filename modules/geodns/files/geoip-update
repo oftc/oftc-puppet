@@ -1,0 +1,14 @@
+#!/bin/sh
+# Managed by Puppet
+
+set -eu
+
+DIR="/etc/puppet/files"
+
+cd /var/cache/GeoIP
+
+su geoip -c "wget -q -N https://git.io/GeoLite2-Country.mmdb"
+
+if ! test -f $DIR/GeoLite2-Country.mmdb || test GeoLite2-Country.mmdb -nt $DIR/GeoLite2-Country.mmdb; then
+  cp GeoLite2-Country.mmdb $DIR/GeoLite2-Country.mmdb
+fi
