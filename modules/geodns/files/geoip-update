@@ -7,7 +7,14 @@ DIR="/etc/puppet/files"
 
 cd /var/cache/GeoIP
 
+su geoip -c "wget -q --mirror https://mailfud.org/geoip-legacy/GeoIP.dat.gz https://mailfud.org/geoip-legacy/GeoIPv6.dat.gz"
 su geoip -c "wget -q -N https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
+
+for file in GeoIP.dat GeoIPv6.dat; do
+  if ! test -f $DIR/$file || test mailfud.org/geoip-legacy/$file.gz -nt $DIR/$file; then
+    gunzip < mailfud.org/geoip-legacy/$file.gz > $DIR/$file
+  fi
+done
 
 if ! test -f $DIR/GeoLite2-Country.mmdb || test GeoLite2-Country.mmdb -nt $DIR/GeoLite2-Country.mmdb; then
   cp GeoLite2-Country.mmdb $DIR/GeoLite2-Country.mmdb
