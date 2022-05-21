@@ -68,5 +68,7 @@ options {
 	rate-limit { responses-per-second 20; };
 
 	geoip-directory "/usr/share/GeoIP";
+
+	serial-update-method unixtime;
 };
 
