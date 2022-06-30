@@ -5,7 +5,7 @@ class jenkins {
   }
 
   apt::source { 'jenkins':
-    location          => 'http://pkg.jenkins-ci.org/debian-stable binary/',
+    location          => 'https://pkg.jenkins.io/debian-stable binary/',
     release           => '',
     repos             => '',
     key               => '150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6',
