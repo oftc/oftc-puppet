@@ -2,10 +2,12 @@
 Description=OFTC IRC Services
 
 [Service]
+ExecStartPre=pg_isready
 ExecStart=/home/oftc/ircservices/services/bin/services -foreground
 ExecReload=/bin/kill -HUP $MAINPID
 #PIDFile=/home/oftc/oftc/hybrid/etc/ircd.pid
 Restart=on-failure
+RestartSec=5
 LimitCORE=infinity
 LimitNOFILE=8192
 
