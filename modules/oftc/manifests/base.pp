@@ -1,6 +1,7 @@
 class oftc::base {
 
-  if $facts['os']['distro']['release']['major'] >= "11" {
+  # yes, this is really how you convert a string to a number in puppet
+  if (0 + $facts['os']['distro']['release']['major']) >= 11 {
     $dnsutils = "bind9-dnsutils"
     $locate = "plocate"
     $wireguard = "wireguard-tools"
