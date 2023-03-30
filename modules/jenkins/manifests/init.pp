@@ -5,10 +5,10 @@ class jenkins {
   }
 
   apt::source { 'jenkins':
-    location          => 'https://pkg.jenkins.io/debian-stable binary/',
+    location          => 'https://pkg.jenkins.io/debian binary/',
     release           => '',
     repos             => '',
-    key               => '150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6',
+    key               => '63667EE74BBA1F0A08A698725BA31D57EF5975CA',
     require           => File['/etc/apt/trusted.gpg.d/jenkins-ci.org.asc'],
   }
 
