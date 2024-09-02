@@ -5,6 +5,7 @@ domain (ip ip6) {
   chain INPUT {
     #proto tcp mod limit limit 1/sec LOG log-prefix "$DOMAIN/tcp REJECT: ";
     #proto udp mod limit limit 1/sec LOG log-prefix "$DOMAIN/udp REJECT: ";
+    proto tcp dport 60000 REJECT reject-with tcp-reset;
     REJECT;
   }
 
