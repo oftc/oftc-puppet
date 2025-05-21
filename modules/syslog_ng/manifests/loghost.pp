@@ -2,7 +2,7 @@ class syslog_ng::loghost {
   file { '/etc/syslog-ng/conf.d/remote.conf':
     mode => '0644', owner => root, group => root,
     source => "puppet:///modules/syslog_ng/remote.conf",
-    require => Package['syslog-ng'],
+    require => Package['syslog-ng-core'],
     notify => Service['syslog-ng'],
   }
 
