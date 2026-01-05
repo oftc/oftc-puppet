@@ -1,7 +1,7 @@
 class jenkins {
   file { '/etc/apt/keyrings/jenkins.asc':
     mode => '0644', owner => root, group => root,
-    source => "puppet:///modules/jenkins/jenkins.asc", # get current file from https://pkg.jenkins.io/debian/
+    source => "puppet:///modules/jenkins/jenkins.asc", # get current file from https://pkg.jenkins.io/debian-stable/
     require => File['/etc/apt/keyrings'],
   }
 
