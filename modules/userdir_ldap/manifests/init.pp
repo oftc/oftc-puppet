@@ -1,17 +1,26 @@
 class userdir_ldap {
-  file { '/etc/apt/trusted.gpg.d/db.debian.org.asc':
-    content => template('userdir_ldap/db.debian.org.asc'), # from https://salsa.debian.org/dsa-team/mirror/dsa-puppet/blob/master/modules/debian_org/files/db.debian.org.gpg
+  file { '/etc/apt/keyrings/db.debian.org.asc':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/userdir_ldap/db.debian.org.asc", # from https://salsa.debian.org/dsa-team/mirror/dsa-puppet/blob/master/modules/debian_org/files/db.debian.org.gpg
+    require => File['/etc/apt/keyrings'],
   }
 
-  apt::source { 'db.debian.org':
-    location => 'http://db.debian.org/debian-admin',
-    release => 'debian-all',
-    repos => 'main',
-    require => File['/etc/apt/trusted.gpg.d/db.debian.org.asc'],
+  file { '/etc/apt/trusted.gpg.d/db.debian.org.asc':
+    ensure => absent,
+  }
+
+  file { '/etc/apt/sources.list.d/db.debian.org.sources':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/userdir_ldap/db.debian.org.sources",
+    require => File['/etc/apt/keyrings/db.debian.org.asc'],
+  }
+
+  file { '/etc/apt/sources.list.d/db.debian.org.list':
+    ensure => absent,
   }
 
   package { 'userdir-ldap':
-    require => Apt::Source['db.debian.org'],
+    require => File['/etc/apt/sources.list.d/db.debian.org.sources'],
   }
 
   $configserver = hiera('configserver')

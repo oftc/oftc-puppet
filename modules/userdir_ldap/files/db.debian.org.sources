@@ -1,0 +1,6 @@
+# File managed by puppet
+Types: deb
+URIs: http://db.debian.org/debian-admin
+Suites: debian-all
+Components: main
+Signed-By: /etc/apt/keyrings/db.debian.org.asc
