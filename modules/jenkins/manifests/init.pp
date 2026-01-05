@@ -1,19 +1,26 @@
 class jenkins {
-  file { '/etc/apt/trusted.gpg.d/jenkins-ci.org.asc':
+  file { '/etc/apt/keyrings/jenkins.asc':
     mode => '0644', owner => root, group => root,
-    source => "puppet:///modules/jenkins/jenkins-ci.org.asc",
+    source => "puppet:///modules/jenkins/jenkins.asc", # get current file from https://pkg.jenkins.io/debian/
+    require => File['/etc/apt/keyrings'],
   }
 
-  apt::source { 'jenkins':
-    location          => 'https://pkg.jenkins.io/debian binary/',
-    release           => '',
-    repos             => '',
-    key               => '63667EE74BBA1F0A08A698725BA31D57EF5975CA',
-    require           => File['/etc/apt/trusted.gpg.d/jenkins-ci.org.asc'],
+  file { '/etc/apt/trusted.gpg.d/jenkins-ci.org.asc':
+    ensure => absent,
+  }
+
+  file { '/etc/apt/sources.list.d/jenkins.sources':
+    mode => '0644', owner => root, group => root,
+    source => "puppet:///modules/jenkins/jenkins.sources",
+    require => File['/etc/apt/keyrings/jenkins.asc'],
+  }
+
+  file { '/etc/apt/sources.list.d/jenkins.list':
+    ensure => absent,
   }
 
   package { 'jenkins':
-    require => Apt::Source['jenkins'],
+    require => File['/etc/apt/sources.list.d/jenkins.sources'],
   }
 
   ensure_packages ([

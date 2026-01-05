@@ -1,0 +1,5 @@
+# File managed by puppet
+Types: deb
+URIs: https://pkg.jenkins.io/debian
+Suites: binary/
+Signed-By: /etc/apt/keyrings/jenkins.asc
