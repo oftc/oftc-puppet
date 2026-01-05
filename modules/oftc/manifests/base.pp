@@ -104,4 +104,10 @@ class oftc::base {
     mode => '0755', owner => root, group => root,
     ensure => directory,
   }
+
+  # apt keyring dir
+  file { '/etc/apt/keyrings':
+    mode => '0755', owner => root, group => root,
+    ensure => directory,
+  }
 }
